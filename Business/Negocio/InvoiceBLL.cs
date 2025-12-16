@@ -12,25 +12,24 @@ namespace Business.Negocio
     public class InvoiceBLL
     {
         private readonly InvoiceDAL invoiceDAL = new InvoiceDAL();
-        private readonly CustomerBLL customerBLL = new CustomerBLL(); 
-        private readonly InvoiceDetailDAL invoiceDetailDAL = new InvoiceDetailDAL(); 
+        private readonly CustomerBLL customerBLL = new CustomerBLL();
+        private readonly InvoiceDetailDAL invoiceDetailDAL = new InvoiceDetailDAL();
         private readonly StockMovementBLL stockMovementBLL = new StockMovementBLL();
 
         private readonly ProductBLL productBLL = new ProductBLL();
+        private readonly DBHelper dbHelper = new DBHelper();
 
-
-        private readonly string connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
+        //private readonly string connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
 
         // -------------------------------------------------------------------
         // 1. CREAR FACTURA COMPLETA (TRANSACCIONAL) ➕
 
         public int CreateInvoice(Invoice invoice)
         {
- 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            using (SqlConnection connection = dbHelper.OpenConnection())
             {
-                connection.Open();
-                SqlTransaction transaction = connection.BeginTransaction();
+                SqlTransaction transaction = dbHelper.GetTrasation();
                 int newHeaderID = 0;
 
                 try
@@ -58,14 +57,12 @@ namespace Business.Negocio
 
                         stockMovementBLL.InsertStockMovement(movement, connection, transaction);
                     }
-
                     transaction.Commit();
                     return newHeaderID;
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-
                     throw new ApplicationException($"Error crítico al crear la factura. Transacción revertida. Detalle: {ex.Message}", ex);
                 }
             }
@@ -74,7 +71,7 @@ namespace Business.Negocio
 
         // -------------------------------------------------------------------
         // 2. OBTENER FACTURA POR CÓDIGO 🔍
- 
+
         public InvoiceHeader GetInvoiceHeader(int code)
         {
             if (code <= 0)
@@ -108,7 +105,7 @@ namespace Business.Negocio
 
         // -------------------------------------------------------------------
         // 4. ANULAR FACTURA ❌
-  
+
         public bool CancelInvoice(int codeInvoiceHeader)
         {
             if (codeInvoiceHeader <= 0)
@@ -127,9 +124,12 @@ namespace Business.Negocio
             }
         }
 
+
+
+
         // -------------------------------------------------------------------
         // 5. MÉTODOS PRIVADOS DE LÓGICA DE NEGOCIO Y VALIDACIÓN
-     
+
         private void CalculateInvoiceTotals(Invoice invoice)
         {
             if (invoice.Details == null || !invoice.Details.Any())
@@ -142,14 +142,14 @@ namespace Business.Negocio
             }
 
             decimal subtotal = invoice.Details.Sum(d => d.Quantity * d.Price);
-            decimal taxRate = 0.18m; 
+            decimal taxRate = 0.18m;
 
             invoice.Header.SubtotalHeader = subtotal;
             invoice.Header.TotalTaxHeader = subtotal * taxRate;
             invoice.Header.TotalAmountHeader = subtotal + invoice.Header.TotalTaxHeader;
         }
 
- 
+
         private void ValidateInvoice(Invoice invoice)
         {
             if (invoice == null || invoice.Header == null)
@@ -217,7 +217,7 @@ namespace Business.Negocio
             }
         }
 
- 
+
         public Invoice GetInvoiceById(int invoiceId)
         {
             if (invoiceId <= 0)
@@ -230,7 +230,7 @@ namespace Business.Negocio
 
             if (header == null)
             {
-                return null; 
+                return null;
             }
 
             // 2. Obtener los Detalles

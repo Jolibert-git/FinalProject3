@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Negocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,27 @@ namespace Screen.Views
 {
     public partial class FrmSelecCodeProduct : Form
     {
+        public bool result;
+        ProductBLL ProductLogic = new ProductBLL();
+
         public FrmSelecCodeProduct()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public int verificator(string code)
         {
 
+            return 0;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string code = textCode.Text;
+            if (!string.IsNullOrEmpty(code))
+            {
+                result = ProductLogic.ValidateExistencesProduct(code);
+            }
         }
     }
 }

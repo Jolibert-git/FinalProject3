@@ -11,13 +11,28 @@ namespace Business.Negocio
     public class ProductBLL
     {
         private readonly ProductDAL _productDAL;
-       
+
 
         public ProductBLL()
         {
             // Inicializa la Capa de Acceso a Datos
             _productDAL = new ProductDAL();
         }
+
+        //Validete if product exist
+        public bool ValidateExistencesProduct(string code)
+        {
+            try
+            {
+                return _productDAL.ValidateExistencesProduct(code);
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error al llamar en la clase ProductBLL al llamar el metodoValidateExistencesProduct de la clase ProductDAL{Ex.Message}");
+                throw;
+            }
+        }
+
 
         // -------------------------------------------------------------------
         // 1. Validaciones Centrales
@@ -120,7 +135,7 @@ namespace Business.Negocio
 
         public Product GetProductById(string codeProduct)
         {
-            
+
 
             try
             {
@@ -157,11 +172,11 @@ namespace Business.Negocio
                 throw new Exception("Error al eliminar el producto. Detalle: " + ex.Message);
             }
 
-            
+
 
         }
 
-
+        //7.method for work with Seach product
 
         public List<Product> GetAllProducts()
         {

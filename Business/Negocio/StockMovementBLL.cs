@@ -166,5 +166,5 @@ namespace Business.Negocio
                 throw new Exception("Error al buscar el movimiento por ID. Detalle: " + ex.Message);
             }
         }
-    }   
+    }
 }

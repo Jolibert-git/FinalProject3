@@ -20,7 +20,7 @@ namespace Business.Negocio
 
 
 
-        
+
         public Customer GetCustomerByCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
@@ -44,7 +44,7 @@ namespace Business.Negocio
                 throw;
             }
         }
-        
+
 
         public bool InsertCustomer(Customer newCustomer)
         {
@@ -70,7 +70,7 @@ namespace Business.Negocio
             }
         }
 
-     
+
         public bool UpdateCustomer(Customer existingCustomer)
         {
             if (existingCustomer == null || string.IsNullOrWhiteSpace(existingCustomer.CodeCustomer) || string.IsNullOrWhiteSpace(existingCustomer.FullNameCustomer))

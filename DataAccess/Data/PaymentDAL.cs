@@ -22,7 +22,7 @@ namespace DataAccess.Data
                 {
                     new SqlParameter("@codeInvoiceHeader", payment.CodeInvoiceHeader),
                     new SqlParameter("@paymentDate", payment.PaymentDate),
-                    new SqlParameter("@amountPaid", payment.AmountPaid),  
+                    new SqlParameter("@amountPaid", payment.AmountPaid),
                     new SqlParameter("@codeMethod", payment.CodeMethod),
                     new SqlParameter("@referenceNumber", (object)payment.ReferenceNumber ?? DBNull.Value),
                     new SqlParameter("@paymentNote", (object)payment.PaymentNote ?? DBNull.Value),
@@ -189,7 +189,7 @@ namespace DataAccess.Data
         public List<PaymentMethod> GetPaymentMethods()
         {
             List<PaymentMethod> methods = new List<PaymentMethod>();
-            string query = "SELECT CodeMethod, NameMethod FROM PaymentMethod ORDER BY NameMethod"; 
+            string query = "SELECT CodeMethod, NameMethod FROM PaymentMethod ORDER BY NameMethod";
 
             try
             {

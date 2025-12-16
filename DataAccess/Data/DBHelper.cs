@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Protocols;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,36 @@ namespace DataAccess.Data
     public class DBHelper
     {
         SqlConnection Connection = new SqlConnection("Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;");
-        private readonly string _connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
+        //private readonly string _connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
+
+        //validate existen
+        public bool ValidateExisten(SqlConnection conn, string procedure, SqlParameter[] parameter)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand(procedure, conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddRange(parameter);
+
+                    SqlParameter answersParam = new SqlParameter("@Answer", SqlDbType.Int);
+                    answersParam.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(answersParam);
+
+                    command.ExecuteNonQuery();
+
+                    int answers = (int)answersParam.Value;
+                    return answers == 1;
+                }
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error al ejecutae comando en la clase DBHelper{Ex.Message}");
+                throw;
+            }
+        }
+
+
 
 
         // -------------------------------------------------------------------
@@ -22,9 +52,9 @@ namespace DataAccess.Data
         {
             try
             {
-                SqlConnection connection = new SqlConnection(_connectionString);
-                connection.Open();
-                return connection;
+                //SqlConnection connection = new SqlConnection(_connectionString);
+                Connection.Open();
+                return Connection;
             }
             catch (Exception ex)
             {
@@ -36,7 +66,7 @@ namespace DataAccess.Data
 
         // -------------------------------------------------------------------
         // 2. CERRAR CONEXIÓN (CORREGIDO DE CloseConnectio a CloseConnection)
- 
+
         public void CloseConnection()
         {
             try
@@ -82,8 +112,8 @@ namespace DataAccess.Data
                         Console.WriteLine($"Error en ExecuteNonQuery para {storedProcedureName}: {ex.Message}");
                         throw;
                     }
-                } 
-            } 
+                }
+            }
 
             return rowsAffected;
         }
@@ -98,14 +128,14 @@ namespace DataAccess.Data
         // -------------------------------------------------------------------
         // 4. MÉTODO PARA LECTURA (ExecuteReader)
 
-        public SqlDataReader ExecuteReader(SqlConnection connection, string storedProcedureName, SqlParameter[] parameters = null)
+        public SqlDataReader ExecuteReader(SqlConnection connection, string storedProcedureName, SqlParameter[] parameters = null)//receive two/thre parameters (Open connetion,Procedure and pareameter) for executet data base 
         {
             try
             {
 
                 using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;//define type of cammand
 
                     if (parameters != null)
                     {
@@ -159,6 +189,28 @@ namespace DataAccess.Data
             return result;
         }
 
-        
+
+        //---------------------------------------
+        // 5. Validar transaccion
+        public SqlTransaction GetTrasation()
+        {
+            try
+            {
+
+                var Trasaction = Connection.BeginTransaction();
+                return Trasaction;
+
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error en la capa DataAccess en la clase DBHelper: {Ex.Message}");
+                return null;
+            }
+
+        }
+
+
+
+
     }
 }

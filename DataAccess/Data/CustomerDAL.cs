@@ -27,7 +27,7 @@ namespace DataAccess.Data
             {
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-            new SqlParameter("@CodeCustomer", codeCustomer) 
+            new SqlParameter("@CodeCustomer", codeCustomer)
                 };
                 connection = dbHelper.OpenConnection();
                 reader = dbHelper.ExecuteReader(connection, "ReadCustomer", parameters);

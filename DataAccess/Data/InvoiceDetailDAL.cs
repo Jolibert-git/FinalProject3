@@ -30,7 +30,7 @@ namespace DataAccess.Data
                 command.Parameters.AddWithValue("@Quantity", detail.Quantity);
                 command.Parameters.AddWithValue("@Price", detail.Price);
                 command.Parameters.AddWithValue("@CostProduct", detail.CostProduct);
-                command.Parameters.AddWithValue("@TaxRate", detail.TaxRate); 
+                command.Parameters.AddWithValue("@TaxRate", detail.TaxRate);
                 command.Parameters.AddWithValue("@TotalLine", detail.TotalLine);
                 command.Parameters.AddWithValue("@StatusDetail", detail.StatusDetail);
 
@@ -167,7 +167,7 @@ namespace DataAccess.Data
                 };
 
                 connection = dbHelper.OpenConnection();
-             
+
                 reader = dbHelper.ExecuteReader(connection, "ReadInvoiceDetailsByHeaderId", parameters);
 
                 while (reader.Read())

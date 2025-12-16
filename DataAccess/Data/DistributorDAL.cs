@@ -16,7 +16,7 @@ namespace DataAccess.Data
 
         // -------------------------------------------------------------------
         // 1. OBTENER DISTRIBUIDOR POR CÓDIGO (Para uso en BLL) 🔍
- 
+
         public Distributor GetDistributorByCode(string code)
         {
             Distributor distributor = null;

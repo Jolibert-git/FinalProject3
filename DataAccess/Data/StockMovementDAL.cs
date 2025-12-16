@@ -16,7 +16,7 @@ namespace DataAccess.Data
 
         public int InsertStockMovement(StockMovement movement, SqlConnection connection, SqlTransaction transaction)
         {
-            string storedProcedureName = "InsertStockMovement"; 
+            string storedProcedureName = "InsertStockMovement";
             int newMovementID = 0;
 
             using (SqlCommand command = new SqlCommand(storedProcedureName, connection, transaction))
@@ -28,7 +28,7 @@ namespace DataAccess.Data
                 command.Parameters.AddWithValue("@NameMovement", movement.NameMovement);
                 command.Parameters.AddWithValue("@Operation", movement.Operation);
 
-                object result = command.ExecuteScalar(); 
+                object result = command.ExecuteScalar();
 
                 if (result != null && result != DBNull.Value)
                 {
@@ -39,7 +39,7 @@ namespace DataAccess.Data
         }
 
 
-  
+
         // 1. INSERTAR MOVIMIENTO DE STOCK (Transaccional)
         public int InsertStockMovement(StockMovement movement)
         {
@@ -51,7 +51,7 @@ namespace DataAccess.Data
             {
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-                   
+
                     new SqlParameter("@codeProduct", movement.CodeProduct),
                     new SqlParameter("@movementQuantity", movement.MovementQuantity),
                     new SqlParameter("@movementType", movement.MovementType),
@@ -60,13 +60,13 @@ namespace DataAccess.Data
                     new SqlParameter("@operation", movement.Operation)
                 };
 
-               
+
                 connection = dbHelper.OpenConnection();
                 reader = dbHelper.ExecuteReader(connection, "InsertStockMovement", parameters);
 
                 if (reader.Read())
                 {
-                   
+
                     if (reader["NewMovementID"] != DBNull.Value)
                     {
                         newMovementID = Convert.ToInt32(reader["NewMovementID"]);
@@ -152,7 +152,7 @@ namespace DataAccess.Data
 
         public StockMovement GetMovementById(int codeMovement)
         {
-            
+
             /*
             SqlDataReader reader = null;
             try

@@ -6,14 +6,41 @@ using Model.Entities;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace DataAccess.Data
 {
     public class ProductDAL
     {
         private readonly DBHelper dbHelper = new DBHelper();
-        private readonly string _connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
-        // 1. INSERTAR PRODUCTO ➕
+
+
+        //validate existen product
+        public bool ValidateExistencesProduct(string code)
+        {
+            using (SqlConnection conn = dbHelper.OpenConnection())
+            {
+                string storeProdcedure = "ValidatedProduct";
+
+                SqlParameter[] parameter = new SqlParameter[]
+                {
+                new SqlParameter("@CodeProduct",code)
+                };
+
+                try
+                {
+                    return dbHelper.ValidateExisten(conn, storeProdcedure, parameter);
+                }
+                catch (Exception Ex)
+                {
+                    Console.WriteLine($"Problem in class ProductDAL in maybe it doesn't return value{Ex.Message}");
+                    throw;
+
+                }
+            }
+        }
+        //private readonly string _connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
+        // 1. INSERTAR PRODUCTO 
         public bool InsertProduct(Product product)
         {
             try
@@ -83,7 +110,7 @@ namespace DataAccess.Data
             }
         }
 
-  
+
         // 3. LEER PRODUCTOS CON FILTROS (ReadProduct) 📋
         public List<Product> ReadProducts(string codeProduct = null, string nameProduct = null)
         {
@@ -199,69 +226,71 @@ namespace DataAccess.Data
             return product;
         }
 
-       
 
 
+        //6. Get it all product, used more by search product
         public List<Product> GetAllProducts()
         {
             List<Product> products = new List<Product>();
 
+            SqlConnection conn = dbHelper.OpenConnection();//Open Connetion with method
+                                                           //SqlDataReader reder = null; 
+
             // 1. Consulta SQL COMPLETA (Esta parte es correcta)
-            string sqlQuery = @"
-        SELECT 
-            CodeProduct, NameProduct, PriceProduct, CostProduct, StockProduct, TaxProduct, 
-            ExpiryDateProduct, IsActive, UnitOfMeasure, CodeDistributor, 
-            LocationProduct, DiscountCostProduct, DateInProduct, DiscountSellProduct, 
-            LastPriceProduct, UtilityProduct, MinimunExistenProduct 
-        FROM Product 
-        WHERE IsActive = 1;
-    ";
+            /*string sqlQuery = @"
+             SELECT 
+                      CodeProduct, NameProduct, PriceProduct, CostProduct, StockProduct, TaxProduct, 
+                      ExpiryDateProduct, IsActive, UnitOfMeasure, CodeDistributor, 
+                      LocationProduct, DiscountCostProduct, DateInProduct, DiscountSellProduct, 
+                      LastPriceProduct, UtilityProduct, MinimunExistenProduct 
+                      FROM Product 
+                      WHERE IsActive = 1; 
+                         ";*/
 
             try
             {
                 // 2. USO DE 'using' para asegurar que la conexión y el comando se cierren correctamente.
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                // using (SqlConnection conn = new SqlConnection(_connectionString))
+                //sqlQuery                                                                            //{
+                using (SqlDataReader reader = dbHelper.ExecuteReader(conn, "GetAllProducts")) //ExecuteReader is a method about SqlCommand
                 {
-                    using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
+                    //conn.Open();
+
+                    //using (SqlDataReader reader = cmd.ExecuteReader())
+                    //{
+
+                    while (reader.Read())//while there are something read
                     {
-                        conn.Open();
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        // 3. Mapeo complete
+                        Product product = new Product
                         {
-                            while (reader.Read())
-                            {
-                                // 3. Mapeo COMPLETO de TODAS las columnas
-                                Product product = new Product
-                                {
-                                    CodeProduct = reader["CodeProduct"].ToString(),
-                                    NameProduct = reader["NameProduct"].ToString(),
-                                    PriceProduct = Convert.ToDecimal(reader["PriceProduct"]),
-                                    CostProduct = Convert.ToDecimal(reader["CostProduct"]),
-                                    StockProduct = Convert.ToDecimal(reader["StockProduct"]),
+                            CodeProduct = reader["CodeProduct"].ToString(),
+                            NameProduct = reader["NameProduct"].ToString(),
+                            PriceProduct = Convert.ToDecimal(reader["PriceProduct"]),
+                            CostProduct = Convert.ToDecimal(reader["CostProduct"]),
+                            StockProduct = Convert.ToDecimal(reader["StockProduct"]),
 
-                                    TaxProduct = Convert.ToDecimal(reader["TaxProduct"]),
-                                    UnitOfMeasure = reader["UnitOfMeasure"] != DBNull.Value ? reader["UnitOfMeasure"].ToString() : string.Empty,
-                                    CodeDistributor = reader["CodeDistributor"] != DBNull.Value ? reader["CodeDistributor"].ToString() : string.Empty,
-                                    LocationProduct = reader["LocationProduct"] != DBNull.Value ? reader["LocationProduct"].ToString() : string.Empty,
-                                    UtilityProduct = reader["UtilityProduct"] != DBNull.Value ? reader["UtilityProduct"].ToString() : string.Empty,
+                            TaxProduct = Convert.ToDecimal(reader["TaxProduct"]),
+                            UnitOfMeasure = reader["UnitOfMeasure"] != DBNull.Value ? reader["UnitOfMeasure"].ToString() : string.Empty,
+                            CodeDistributor = reader["CodeDistributor"] != DBNull.Value ? reader["CodeDistributor"].ToString() : string.Empty,
+                            LocationProduct = reader["LocationProduct"] != DBNull.Value ? reader["LocationProduct"].ToString() : string.Empty,
+                            UtilityProduct = reader["UtilityProduct"] != DBNull.Value ? reader["UtilityProduct"].ToString() : string.Empty,
 
-                                    // Mapeo de fechas (NULLable)
-                                    ExpiryDateProduct = reader["ExpiryDateProduct"] != DBNull.Value ? (DateTime?)reader["ExpiryDateProduct"] : null,
-                                    DateInProduct = reader["DateInProduct"] != DBNull.Value ? (DateTime?)reader["DateInProduct"] : null,
+                            ExpiryDateProduct = reader["ExpiryDateProduct"] != DBNull.Value ? (DateTime?)reader["ExpiryDateProduct"] : null,
+                            DateInProduct = reader["DateInProduct"] != DBNull.Value ? (DateTime?)reader["DateInProduct"] : null,
 
-                                    // Mapeo de decimales NULLable
-                                    DiscountCostProduct = reader["DiscountCostProduct"] != DBNull.Value ? (decimal?)reader["DiscountCostProduct"] : null,
-                                    DiscountSellProduct = reader["DiscountSellProduct"] != DBNull.Value ? (decimal?)reader["DiscountSellProduct"] : null,
-                                    LastPriceProduct = reader["LastPriceProduct"] != DBNull.Value ? (decimal?)reader["LastPriceProduct"] : null,
-                                    MinimunExistenProduct = reader["MinimunExistenProduct"] != DBNull.Value ? (decimal?)reader["MinimunExistenProduct"] : null,
+                            DiscountCostProduct = reader["DiscountCostProduct"] != DBNull.Value ? (decimal?)reader["DiscountCostProduct"] : null,
+                            DiscountSellProduct = reader["DiscountSellProduct"] != DBNull.Value ? (decimal?)reader["DiscountSellProduct"] : null,
+                            LastPriceProduct = reader["LastPriceProduct"] != DBNull.Value ? (decimal?)reader["LastPriceProduct"] : null,
+                            MinimunExistenProduct = reader["MinimunExistenProduct"] != DBNull.Value ? (decimal?)reader["MinimunExistenProduct"] : null,
 
-                                    IsActive = Convert.ToBoolean(reader["IsActive"])
-                                };
-                                products.Add(product);
-                            }
-                        }
+                            IsActive = Convert.ToBoolean(reader["IsActive"])
+                        };
+                        products.Add(product);
                     }
+                    //}
                 }
+                // }
             }
             catch (Exception ex)
             {
@@ -269,6 +298,8 @@ namespace DataAccess.Data
             }
             return products;
         }
+
+
 
     }
 }

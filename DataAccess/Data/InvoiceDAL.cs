@@ -19,7 +19,7 @@ namespace DataAccess.Data
 
         // -------------------------------------------------------------------
         // 1. INSERTAR CABECERA DE FACTURA (CORREGIDO)
-        
+
         public int InsertInvoiceHeader(InvoiceHeader header, SqlConnection connection, SqlTransaction transaction)
         {
             int newHeaderID = 0;
@@ -87,7 +87,7 @@ namespace DataAccess.Data
 
         // -------------------------------------------------------------------
         // 3. LEER CABECERAS DE FACTURA
- 
+
         public List<InvoiceHeader> ReadInvoiceHeaders(int? codeInvoiceHeader = null, string codeCustomer = null, string invoiceStatus = null)
         {
             List<InvoiceHeader> headers = new List<InvoiceHeader>();
@@ -142,7 +142,7 @@ namespace DataAccess.Data
                 connection = dbHelper.OpenConnection();
                 reader = dbHelper.ExecuteReader(connection, "ReadInvoiceHeaderById", parameters);
 
-                if (reader.Read()) 
+                if (reader.Read())
                 {
                     header = MapInvoiceHeaderFromReader(reader);
                 }
@@ -160,9 +160,9 @@ namespace DataAccess.Data
             return header;
         }
 
-  
+
         // 4. MÉTODO DE MAPEO
-        
+
 
         private InvoiceHeader MapInvoiceHeaderFromReader(SqlDataReader reader)
         {
@@ -176,7 +176,7 @@ namespace DataAccess.Data
                 catch (IndexOutOfRangeException ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"ADVERTENCIA DAL: Columna '{columnName}' no encontrada. Error: {ex.Message}");
-                    return null; 
+                    return null;
                 }
             }
 
@@ -241,9 +241,9 @@ namespace DataAccess.Data
             return headers;
         }
 
-       
 
-        
+
+
     }
 }
 
