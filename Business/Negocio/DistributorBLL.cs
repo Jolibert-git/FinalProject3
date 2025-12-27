@@ -11,6 +11,7 @@ namespace Business.Negocio
 {
     public class DistributorBLL
     {
+        //MALA PRACTICA DE TRABAJAR CON DBHelper EN LA CAPA NEGOCIO (TENGO QUE SOLUCCIONARLO)
         private readonly DBHelper dbHelper = new DBHelper();
 
         // -------------------------------------------------------------------

@@ -14,11 +14,15 @@ namespace Screen.Views
 {
     public partial class FrmPrincipalScreen : Form
     {
-        public FrmPrincipalScreen()
+        public readonly FrmInvoiceCreation _invoiceCreation;
+        public readonly FrmSelecCodeProduct _selecCodeProduct;
+        public FrmPrincipalScreen(FrmInvoiceCreation _invoiceCreation, FrmSelecCodeProduct _selecCodeProduct)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.IsMdiContainer = true;
+            this._invoiceCreation = _invoiceCreation;
+            this._selecCodeProduct = _selecCodeProduct;
         }
 
         private void ShowForm<T>() where T : Form, new()
@@ -51,7 +55,7 @@ namespace Screen.Views
         private void CrearFacturar_Click(object sender, EventArgs e)
         {
             // 1. Crear la instancia (sin 'using' si usas Show())
-            FrmInvoiceCreation formFactura = new FrmInvoiceCreation();
+            FrmInvoiceCreation formFactura = _invoiceCreation /*new FrmInvoiceCreation()*/;
 
             // 2. Establecer el 'Owner'. Esto asegura que el formulario aparezca encima del dueño (this).
             formFactura.Owner = this;
@@ -70,7 +74,13 @@ namespace Screen.Views
 
         private void btnEditarProducto_Click(object sender, EventArgs e)
         {
-            ShowForm<FrmSelecCodeProduct>();
+            FrmSelecCodeProduct formProduct = _selecCodeProduct;
+
+            // 2. Establecer el 'Owner'. Esto asegura que el formulario aparezca encima del dueño (this).
+            formProduct.Owner = this;
+
+            // 3. Mostrar la ventana de forma NO MODAL.
+            formProduct.Show();
         }
 
         private void btnEditarCliente_Click(object sender, EventArgs e)

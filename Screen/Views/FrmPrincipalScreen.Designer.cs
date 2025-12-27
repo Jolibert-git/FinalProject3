@@ -58,7 +58,7 @@
             CrearFacturar.Font = new Font("Segoe UI Semibold", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CrearFacturar.Location = new Point(33, 47);
             CrearFacturar.Name = "CrearFacturar";
-            CrearFacturar.Size = new Size(1348, 719);
+            CrearFacturar.Size = new Size(292, 101);
             CrearFacturar.TabIndex = 0;
             CrearFacturar.Text = "CREAR FACTURAR";
             CrearFacturar.UseVisualStyleBackColor = false;

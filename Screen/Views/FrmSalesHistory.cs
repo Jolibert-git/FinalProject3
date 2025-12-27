@@ -16,20 +16,23 @@ namespace Screen.Views
 
     public partial class FrmSalesHistory : Form
     {
+        private readonly InvoiceBLL _invoiceBLL ;
+        
 
-
-
-        private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
+        //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
+        //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
 
         // Propiedad para almacenar el ID de la factura seleccionada (si aplica)
         public int SelectedInvoiceId { get; private set; } = -1;
 
-        public FrmSalesHistory()
+        public FrmSalesHistory(InvoiceBLL _invoiceBLL)
         {
             InitializeComponent();
             InitializeFormDefaults();
             InitializeDataGridView();
             LoadInvoices();
+            this._invoiceBLL = _invoiceBLL;
+
         }
 
         private void InitializeFormDefaults()

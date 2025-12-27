@@ -12,12 +12,12 @@ namespace Business.Negocio
     {
         private readonly ProductDAL _productDAL;
 
-
-        public ProductBLL()
+        public ProductBLL(ProductDAL _productDAL)
         {
             // Inicializa la Capa de Acceso a Datos
-            _productDAL = new ProductDAL();
+            this._productDAL = _productDAL;
         }
+        
 
         //Validete if product exist
         public bool ValidateExistencesProduct(string code)
@@ -68,14 +68,17 @@ namespace Business.Negocio
             }
 
             // Opcional: Validar que la fecha de caducidad no sea pasada si se especifica
+            /*
             if (product.ExpiryDateProduct.HasValue && product.ExpiryDateProduct.Value < DateTime.Today)
             {
 
             }
+            */
         }
 
         // -------------------------------------------------------------------
-        // 2. INSERTAR PRODUCTO ➕
+        // 2. INSERT PRODUCT (use for new product)
+        // use method ValidateProduct, it's use for varificate that all date it's corret product
 
         public bool InsertProduct(Product product)
         {
@@ -112,7 +115,7 @@ namespace Business.Negocio
         }
 
         // -------------------------------------------------------------------
-        // 4. LEER PRODUCTOS CON FILTROS 📋
+        // 4. LEER PRODUCTOS CON FILTROS 
 
         public List<Product> GetProducts(string codeProduct = null, string nameProduct = null)
         {
@@ -131,7 +134,8 @@ namespace Business.Negocio
         }
 
         // -------------------------------------------------------------------
-        // 5. OBTENER PRODUCTO POR ID (INDIVIDUAL) 🔍
+        // 5. GET PRODUCT IDIVIDUAL USE ID(CODE PRODUCT)
+        // use method GetProductById of class ProductDAL
 
         public Product GetProductById(string codeProduct)
         {
@@ -155,6 +159,7 @@ namespace Business.Negocio
 
         // -------------------------------------------------------------------
         // 6. ELIMINAR/ANULAR PRODUCTO ❌ (Asume la existencia de un SP en el DAL)
+
         public bool DeleteProduct(string codeProduct)
         {
             try

@@ -20,11 +20,13 @@ namespace Screen.Views
     {
         // Declara una variable privada para guardar el ID de la factura a mostrar
         private readonly int _invoiceId;
-        private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
+        private readonly InvoiceBLL _invoiceBLL ;
+        //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
 
-        public FrmInvoiceView()
+        public FrmInvoiceView(InvoiceBLL _invoiceBLL)
         {
             InitializeComponent();
+            this._invoiceBLL = _invoiceBLL;
         }
 
         public FrmInvoiceView(int invoiceId)

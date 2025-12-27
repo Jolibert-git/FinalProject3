@@ -10,12 +10,12 @@ namespace Business.Negocio
 {
     public class PaymentBLL
     {
+        //private readonly PaymentDAL _paymentDAL;
         private readonly PaymentDAL _paymentDAL;
-
-        public PaymentBLL()
+        public PaymentBLL(PaymentDAL _paymentDAL)
         {
             // Inicializa la capa de acceso a datos (DAL)
-            _paymentDAL = new PaymentDAL();
+            this._paymentDAL = _paymentDAL;
         }
 
         // -------------------------------------------------------------------

@@ -15,10 +15,10 @@ namespace Business.Negocio
     {
         private readonly StockMovementDAL _movementDAL;
 
-        public StockMovementBLL()
+        public StockMovementBLL(StockMovementDAL movementDAL)
         {
             // Inicializa la Capa de Acceso a Datos
-            _movementDAL = new StockMovementDAL();
+            _movementDAL = movementDAL;
         }
 
 

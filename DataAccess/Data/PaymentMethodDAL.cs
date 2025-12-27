@@ -10,7 +10,15 @@ namespace DataAccess.Data
 {
     public class PaymentMethodDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        private readonly IDBHelper dbHelper;
+
+        public PaymentMethodDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }
+        //private readonly DBHelper dbHelper = new DBHelper();
+
+
         // 1. LEER MÉTODOS DE PAGO
         public List<PaymentMethod> ReadPaymentMethods(bool? isActive = true)
         {

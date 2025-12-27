@@ -14,21 +14,22 @@ namespace Screen.Views
 {
     public partial class FrmProductSearch : Form
     {
-
-        private readonly ProductBLL _productBLL = new ProductBLL();
+        private readonly ProductBLL _productBLL;
+        //private readonly ProductBLL _productBLL = new ProductBLL();
         private List<Product> _allProducts; // Lista cache de todos los productos
 
         // Propiedad que almacenará el producto seleccionado para devolverlo a FrmInvoiceCreation
         public Product SelectedProduct { get; private set; }
 
 
-        public FrmProductSearch()
+        public FrmProductSearch(ProductBLL _productBLL)
         {
             InitializeComponent();
             InitializeDataGridView();
             LoadAllProducts();
             this.Text = "Búsqueda de Productos";
             this.dgvProducts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellDoubleClick);
+            this._productBLL = _productBLL;
         }
 
         private void InitializeDataGridView()

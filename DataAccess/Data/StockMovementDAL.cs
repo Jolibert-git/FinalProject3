@@ -10,9 +10,15 @@ namespace DataAccess.Data
 {
     public class StockMovementDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        //private readonly DBHelper dbHelper = new DBHelper();
+        
+        private readonly IDBHelper dbHelper;
 
-
+        public StockMovementDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }
+        
 
         public int InsertStockMovement(StockMovement movement, SqlConnection connection, SqlTransaction transaction)
         {

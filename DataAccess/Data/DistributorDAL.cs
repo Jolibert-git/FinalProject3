@@ -12,7 +12,12 @@ namespace DataAccess.Data
 {
     public class DistributorDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        private readonly IDBHelper dbHelper;
+        
+        public DistributorDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }                                                             //private readonly DBHelper dbHelper = new DBHelper();
 
         // -------------------------------------------------------------------
         // 1. OBTENER DISTRIBUIDOR POR CÓDIGO (Para uso en BLL) 🔍

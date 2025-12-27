@@ -16,10 +16,21 @@ namespace Screen.Views
 
     public partial class FrmInvoiceCreation : Form
     {
+
+        private readonly CustomerBLL _customerBLL ;
+        private readonly ProductBLL _productBLL ;
+        private readonly InvoiceBLL _invoiceBLL;
+        private readonly PaymentBLL _paymentBLL ;
+        private readonly FrmSelecCodeProduct _selecCodeProduct;
+        private readonly FrmProductSearch _productSearch;
+        private readonly FrmSalesHistory _salesHistory;
+        /*
         private readonly CustomerBLL _customerBLL = new CustomerBLL();
         private readonly ProductBLL _productBLL = new ProductBLL();
         private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
         private readonly PaymentBLL _paymentBLL = new PaymentBLL();
+        */
+
 
         private readonly int? _invoiceIdToLoad;
 
@@ -28,7 +39,7 @@ namespace Screen.Views
         // Propiedad para almacenar el producto seleccionado desde FrmProductSearch
         public Product SelectedProduct { get; set; }
 
-        public FrmInvoiceCreation()
+        public FrmInvoiceCreation(CustomerBLL _customerBLL, ProductBLL _productBLL, InvoiceBLL _invoiceBLL, PaymentBLL _paymentBLL, FrmSelecCodeProduct _selecCodeProduct, FrmProductSearch _productSearch, FrmSalesHistory _salesHistory)
         {
             InitializeComponent();
             InitializeNewInvoiceNumber();
@@ -39,9 +50,17 @@ namespace Screen.Views
             _invoiceIdToLoad = null;
             this.dgvProductos.SelectionChanged += new System.EventHandler(this.dgvProductos_SelectionChanged);
             this.dtpFechaVencimiento.ValueChanged += new System.EventHandler(this.dtpFechaVencimiento_ValueChanged);
+
+            this._customerBLL = _customerBLL;
+            this._productBLL = _productBLL;
+            this._invoiceBLL = _invoiceBLL;
+            this._paymentBLL = _paymentBLL;
+            this._selecCodeProduct = _selecCodeProduct;
+            this._productSearch = _productSearch;
+            this._salesHistory = _salesHistory;
         }
         
-        public FrmInvoiceCreation(int invoiceId) : this() 
+        public FrmInvoiceCreation(int invoiceId) //: this() 
         {
             _invoiceIdToLoad = invoiceId; 
                                          
@@ -238,7 +257,7 @@ namespace Screen.Views
         {
             
             
-            using (FrmProductSearch productSearchForm = new FrmProductSearch())
+            using (FrmProductSearch productSearchForm = _productSearch)
             {
                 if (productSearchForm.ShowDialog() == DialogResult.OK)
                 {
@@ -618,19 +637,21 @@ namespace Screen.Views
 
         private void btnVerHistorialVenta_Click(object sender, EventArgs e)
         {
-            using (FrmSalesHistory salesHistoryForm = new FrmSalesHistory())
+            using (FrmSalesHistory salesHistoryForm = _salesHistory)
             {
                 salesHistoryForm.ShowDialog();
             }
         }
 
+        
         private void btnCrearProducto_Click(object sender, EventArgs e)
         {
-            using (FrmSelecCodeProduct selectCodeProduct = new FrmSelecCodeProduct())
+            using (FrmSelecCodeProduct selectCodeProduct = _selecCodeProduct)
             {
                 selectCodeProduct.ShowDialog();
             }
         }
+        
 
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {

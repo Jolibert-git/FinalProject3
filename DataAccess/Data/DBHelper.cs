@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Data
 {
-    public class DBHelper
+    public class DBHelper: IDBHelper
     {
         SqlConnection Connection = new SqlConnection("Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;");
-        //private readonly string _connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
-
+        
+        //
         //validate existen
         public bool ValidateExisten(SqlConnection conn, string procedure, SqlParameter[] parameter)
         {
@@ -52,7 +52,7 @@ namespace DataAccess.Data
         {
             try
             {
-                //SqlConnection connection = new SqlConnection(_connectionString);
+                //SqlConnection connection = new SqlConnection(Connection);
                 Connection.Open();
                 return Connection;
             }
@@ -89,12 +89,13 @@ namespace DataAccess.Data
 
 
 
-        public int ExecuteNonQuery(string storedProcedureName, SqlParameter[] parameters = null)
+        public int ExecuteNonQuery(string storedProcedureName, SqlParameter[] parameters )
         {
             int rowsAffected = 0;
-            using (SqlConnection connection = OpenConnection())
-            {
-                using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
+            SqlConnection connection = OpenConnection();
+            //using (SqlConnection connection = OpenConnection())
+            //{
+            using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -113,7 +114,7 @@ namespace DataAccess.Data
                         throw;
                     }
                 }
-            }
+            //}
 
             return rowsAffected;
         }

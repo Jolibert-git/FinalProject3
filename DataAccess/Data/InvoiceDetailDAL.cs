@@ -11,7 +11,13 @@ namespace DataAccess.Data
 {
     public class InvoiceDetailDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        private readonly IDBHelper dbHelper;
+                                            
+        public InvoiceDetailDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }
+        //private readonly DBHelper dbHelper = new DBHelper();
         // 1. INSERTAR DETALLE DE FACTURA
 
         public void InsertInvoiceDetail(InvoiceDetail detail, SqlConnection connection, SqlTransaction transaction)

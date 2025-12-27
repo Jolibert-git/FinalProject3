@@ -12,8 +12,16 @@ namespace DataAccess.Data
 {
     public class InvoiceDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
-        private readonly StockMovementDAL _stockDAL = new StockMovementDAL();
+        private readonly IDBHelper dbHelper;
+        private readonly StockMovementDAL stockDAL;
+
+        public InvoiceDAL(IDBHelper _dbHelper, StockMovementDAL _stockDAL)
+        {
+            this.dbHelper = _dbHelper;
+            this.stockDAL = _stockDAL;
+        }                                                                                     //private readonly DBHelper dbHelper = new DBHelper();
+        
+        //private readonly StockMovementDAL _stockDAL = new StockMovementDAL();
 
 
 

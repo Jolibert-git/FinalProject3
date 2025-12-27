@@ -13,9 +13,9 @@ namespace Business.Negocio
     {
         private CustomerDAL _customerDAL;
 
-        public CustomerBLL()
+        public CustomerBLL(CustomerDAL _customerDAL)
         {
-            _customerDAL = new CustomerDAL();
+            this._customerDAL = _customerDAL;
         }
 
 

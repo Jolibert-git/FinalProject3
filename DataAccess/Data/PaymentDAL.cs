@@ -11,7 +11,14 @@ namespace DataAccess.Data
 {
     public class PaymentDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        //private readonly DBHelper dbHelper = new DBHelper();
+        private readonly IDBHelper dbHelper;
+
+        public PaymentDAL(IDBHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
+
 
         // 1. INSERTAR PAGO ➕
         public int InsertPayment(Payment payment)

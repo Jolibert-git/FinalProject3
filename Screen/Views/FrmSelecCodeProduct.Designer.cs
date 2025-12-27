@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
-            textBox1 = new TextBox();
+            buttonSearch = new Button();
+            textCode = new TextBox();
             panel2 = new Panel();
             label3 = new Label();
             label2 = new Label();
@@ -42,8 +42,8 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientInactiveCaption;
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(buttonSearch);
+            panel1.Controls.Add(textCode);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(106, 87);
@@ -51,22 +51,22 @@
             panel1.Size = new Size(576, 240);
             panel1.TabIndex = 0;
             // 
-            // button1
+            // buttonSearch
             // 
-            button1.Location = new Point(383, 159);
-            button1.Name = "button1";
-            button1.Size = new Size(78, 43);
-            button1.TabIndex = 3;
-            button1.Text = "BUSCAR";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonSearch.Location = new Point(383, 159);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(78, 43);
+            buttonSearch.TabIndex = 3;
+            buttonSearch.Text = "BUSCAR";
+            buttonSearch.UseVisualStyleBackColor = true;
+            buttonSearch.Click += button1_Click;
             // 
-            // textBox1
+            // textCode
             // 
-            textBox1.Location = new Point(202, 170);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(92, 23);
-            textBox1.TabIndex = 2;
+            textCode.Location = new Point(202, 170);
+            textCode.Name = "textCode";
+            textCode.Size = new Size(92, 23);
+            textCode.TabIndex = 2;
             // 
             // panel2
             // 
@@ -123,8 +123,8 @@
         #endregion
 
         private Panel panel1;
-        private Button button1;
-        private TextBox textBox1;
+        private Button buttonSearch;
+        private TextBox textCode;
         private Panel panel2;
         private Label label3;
         private Label label2;

@@ -12,7 +12,14 @@ namespace DataAccess.Data
 {
     public class CustomerDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+        //private readonly DBHelper dbHelper = new DBHelper();
+
+        private readonly IDBHelper dbHelper;
+
+        public CustomerDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }
 
         // -------------------------------------------------------------------
         // 1. OBTENER CLIENTE POR CÓDIGO (MÉTODO CRÍTICO)

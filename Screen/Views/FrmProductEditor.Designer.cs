@@ -29,40 +29,40 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            dateTimePicker2 = new DateTimePicker();
-            dateTimePicker1 = new DateTimePicker();
-            comboBox1 = new ComboBox();
+            label16 = new Label();
+            comboActivo = new ComboBox();
+            comboITBIS = new ComboBox();
+            textCodigo = new TextBox();
+            dateTimeFechaExpi = new DateTimePicker();
+            dateTimeFecha = new DateTimePicker();
+            textDescripcion = new TextBox();
+            textUtilidad = new TextBox();
+            textUltPrecio = new TextBox();
+            textDescuento = new TextBox();
+            textCantidad = new TextBox();
+            textMinimoExist = new TextBox();
+            textDistribuidor = new TextBox();
+            textUnidMedida = new TextBox();
+            textPrecio = new TextBox();
+            textCosto = new TextBox();
             label15 = new Label();
-            textBox15 = new TextBox();
             label14 = new Label();
-            textBox14 = new TextBox();
             label13 = new Label();
-            textBox10 = new TextBox();
             label12 = new Label();
             label11 = new Label();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
             label7 = new Label();
-            label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            textBox12 = new TextBox();
-            textBox11 = new TextBox();
-            textBox9 = new TextBox();
-            textBox6 = new TextBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
-            button1 = new Button();
             panel2 = new Panel();
-            button3 = new Button();
-            button2 = new Button();
+            buttonCrear = new Button();
+            buttonAnular = new Button();
+            buttonLimpiar = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -70,62 +70,156 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientInactiveCaption;
-            panel1.Controls.Add(dateTimePicker2);
-            panel1.Controls.Add(dateTimePicker1);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(label16);
+            panel1.Controls.Add(comboActivo);
+            panel1.Controls.Add(comboITBIS);
+            panel1.Controls.Add(textCodigo);
+            panel1.Controls.Add(dateTimeFechaExpi);
+            panel1.Controls.Add(dateTimeFecha);
+            panel1.Controls.Add(textDescripcion);
+            panel1.Controls.Add(textUtilidad);
+            panel1.Controls.Add(textUltPrecio);
+            panel1.Controls.Add(textDescuento);
+            panel1.Controls.Add(textCantidad);
+            panel1.Controls.Add(textMinimoExist);
+            panel1.Controls.Add(textDistribuidor);
+            panel1.Controls.Add(textUnidMedida);
+            panel1.Controls.Add(textPrecio);
+            panel1.Controls.Add(textCosto);
             panel1.Controls.Add(label15);
-            panel1.Controls.Add(textBox15);
             panel1.Controls.Add(label14);
-            panel1.Controls.Add(textBox14);
             panel1.Controls.Add(label13);
-            panel1.Controls.Add(textBox10);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(label10);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox12);
-            panel1.Controls.Add(textBox11);
-            panel1.Controls.Add(textBox9);
-            panel1.Controls.Add(textBox6);
-            panel1.Controls.Add(textBox5);
-            panel1.Controls.Add(textBox4);
-            panel1.Controls.Add(textBox3);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
-            panel1.Location = new Point(28, 29);
+            panel1.Location = new Point(28, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(835, 288);
             panel1.TabIndex = 0;
             // 
-            // dateTimePicker2
+            // label16
             // 
-            dateTimePicker2.Location = new Point(135, 247);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(100, 23);
-            dateTimePicker2.TabIndex = 35;
+            label16.AutoSize = true;
+            label16.Location = new Point(589, 42);
+            label16.Name = "label16";
+            label16.Size = new Size(48, 15);
+            label16.TabIndex = 46;
+            label16.Text = "ACTIVO";
             // 
-            // dateTimePicker1
+            // comboActivo
             // 
-            dateTimePicker1.Location = new Point(135, 205);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(100, 23);
-            dateTimePicker1.TabIndex = 34;
+            comboActivo.FormattingEnabled = true;
+            comboActivo.Location = new Point(656, 39);
+            comboActivo.Name = "comboActivo";
+            comboActivo.Size = new Size(80, 23);
+            comboActivo.TabIndex = 45;
             // 
-            // comboBox1
+            // comboITBIS
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(618, 168);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(102, 23);
-            comboBox1.TabIndex = 3;
+            comboITBIS.FormattingEnabled = true;
+            comboITBIS.Location = new Point(143, 168);
+            comboITBIS.Name = "comboITBIS";
+            comboITBIS.Size = new Size(100, 23);
+            comboITBIS.TabIndex = 44;
+            // 
+            // textCodigo
+            // 
+            textCodigo.Location = new Point(143, 22);
+            textCodigo.Name = "textCodigo";
+            textCodigo.Size = new Size(100, 23);
+            textCodigo.TabIndex = 43;
+            // 
+            // dateTimeFechaExpi
+            // 
+            dateTimeFechaExpi.Location = new Point(143, 247);
+            dateTimeFechaExpi.Name = "dateTimeFechaExpi";
+            dateTimeFechaExpi.Size = new Size(100, 23);
+            dateTimeFechaExpi.TabIndex = 42;
+            // 
+            // dateTimeFecha
+            // 
+            dateTimeFecha.Location = new Point(143, 205);
+            dateTimeFecha.Name = "dateTimeFecha";
+            dateTimeFecha.Size = new Size(100, 23);
+            dateTimeFecha.TabIndex = 41;
+            // 
+            // textDescripcion
+            // 
+            textDescripcion.Location = new Point(143, 67);
+            textDescripcion.Name = "textDescripcion";
+            textDescripcion.Size = new Size(254, 23);
+            textDescripcion.TabIndex = 40;
+            // 
+            // textUtilidad
+            // 
+            textUtilidad.Location = new Point(409, 247);
+            textUtilidad.Name = "textUtilidad";
+            textUtilidad.Size = new Size(100, 23);
+            textUtilidad.TabIndex = 35;
+            // 
+            // textUltPrecio
+            // 
+            textUltPrecio.Location = new Point(409, 208);
+            textUltPrecio.Name = "textUltPrecio";
+            textUltPrecio.Size = new Size(100, 23);
+            textUltPrecio.TabIndex = 35;
+            // 
+            // textDescuento
+            // 
+            textDescuento.Location = new Point(409, 168);
+            textDescuento.Name = "textDescuento";
+            textDescuento.Size = new Size(100, 23);
+            textDescuento.TabIndex = 36;
+            // 
+            // textCantidad
+            // 
+            textCantidad.Location = new Point(639, 128);
+            textCantidad.Name = "textCantidad";
+            textCantidad.Size = new Size(100, 23);
+            textCantidad.TabIndex = 39;
+            // 
+            // textMinimoExist
+            // 
+            textMinimoExist.Location = new Point(639, 168);
+            textMinimoExist.Name = "textMinimoExist";
+            textMinimoExist.Size = new Size(100, 23);
+            textMinimoExist.TabIndex = 38;
+            // 
+            // textDistribuidor
+            // 
+            textDistribuidor.Location = new Point(639, 208);
+            textDistribuidor.Name = "textDistribuidor";
+            textDistribuidor.Size = new Size(100, 23);
+            textDistribuidor.TabIndex = 37;
+            // 
+            // textUnidMedida
+            // 
+            textUnidMedida.Location = new Point(639, 247);
+            textUnidMedida.Name = "textUnidMedida";
+            textUnidMedida.Size = new Size(100, 23);
+            textUnidMedida.TabIndex = 36;
+            // 
+            // textPrecio
+            // 
+            textPrecio.Location = new Point(409, 128);
+            textPrecio.Name = "textPrecio";
+            textPrecio.Size = new Size(100, 23);
+            textPrecio.TabIndex = 35;
+            // 
+            // textCosto
+            // 
+            textCosto.Location = new Point(143, 128);
+            textCosto.Name = "textCosto";
+            textCosto.Size = new Size(100, 23);
+            textCosto.TabIndex = 34;
             // 
             // label15
             // 
@@ -136,13 +230,6 @@
             label15.TabIndex = 33;
             label15.Text = "UNID MEDIDA";
             // 
-            // textBox15
-            // 
-            textBox15.Location = new Point(620, 247);
-            textBox15.Name = "textBox15";
-            textBox15.Size = new Size(100, 23);
-            textBox15.TabIndex = 32;
-            // 
             // label14
             // 
             label14.AutoSize = true;
@@ -151,13 +238,6 @@
             label14.Size = new Size(81, 15);
             label14.TabIndex = 31;
             label14.Text = "DESCRIPCION";
-            // 
-            // textBox14
-            // 
-            textBox14.Location = new Point(125, 67);
-            textBox14.Name = "textBox14";
-            textBox14.Size = new Size(200, 23);
-            textBox14.TabIndex = 30;
             // 
             // label13
             // 
@@ -168,17 +248,10 @@
             label13.TabIndex = 29;
             label13.Text = "CODIGO";
             // 
-            // textBox10
-            // 
-            textBox10.Location = new Point(125, 22);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(100, 23);
-            textBox10.TabIndex = 28;
-            // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(486, 42);
+            label12.Location = new Point(530, 171);
             label12.Name = "label12";
             label12.Size = new Size(84, 15);
             label12.TabIndex = 27;
@@ -196,7 +269,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(530, 171);
+            label10.Location = new Point(57, 171);
             label10.Name = "label10";
             label10.Size = new Size(32, 15);
             label10.TabIndex = 25;
@@ -228,15 +301,6 @@
             label7.Size = new Size(82, 15);
             label7.TabIndex = 22;
             label7.Text = "DISTRIBUIDOR";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(57, 171);
-            label6.Name = "label6";
-            label6.Size = new Size(72, 15);
-            label6.TabIndex = 21;
-            label6.Text = "DESCUENTO";
             // 
             // label5
             // 
@@ -283,107 +347,44 @@
             label1.TabIndex = 16;
             label1.Text = "COSTO";
             // 
-            // textBox12
-            // 
-            textBox12.Location = new Point(618, 208);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(100, 23);
-            textBox12.TabIndex = 14;
-            // 
-            // textBox11
-            // 
-            textBox11.Location = new Point(574, 39);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(100, 23);
-            textBox11.TabIndex = 13;
-            // 
-            // textBox9
-            // 
-            textBox9.Location = new Point(135, 168);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(100, 23);
-            textBox9.TabIndex = 11;
-            // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(397, 128);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(100, 23);
-            textBox6.TabIndex = 8;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(397, 168);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 7;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(397, 208);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 6;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(397, 247);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 5;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(618, 128);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 4;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(135, 128);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 3;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(64, 36);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 46);
-            button1.TabIndex = 0;
-            button1.Text = "VOLVER";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             panel2.BackColor = SystemColors.GradientInactiveCaption;
-            panel2.Controls.Add(button3);
-            panel2.Controls.Add(button2);
-            panel2.Controls.Add(button1);
+            panel2.Controls.Add(buttonCrear);
+            panel2.Controls.Add(buttonAnular);
+            panel2.Controls.Add(buttonLimpiar);
             panel2.Location = new Point(28, 341);
             panel2.Name = "panel2";
             panel2.Size = new Size(835, 136);
             panel2.TabIndex = 3;
             // 
-            // button3
+            // buttonCrear
             // 
-            button3.Location = new Point(618, 36);
-            button3.Name = "button3";
-            button3.Size = new Size(102, 46);
-            button3.TabIndex = 2;
-            button3.Text = "CREAR";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            buttonCrear.Location = new Point(655, 48);
+            buttonCrear.Name = "buttonCrear";
+            buttonCrear.Size = new Size(101, 41);
+            buttonCrear.TabIndex = 2;
+            buttonCrear.Text = "Crear";
+            buttonCrear.UseVisualStyleBackColor = true;
+            buttonCrear.Click += buttonCrear_Click;
             // 
-            // button2
+            // buttonAnular
             // 
-            button2.Location = new Point(362, 36);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 46);
-            button2.TabIndex = 1;
-            button2.Text = "ANULAR";
-            button2.UseVisualStyleBackColor = true;
+            buttonAnular.Location = new Point(367, 48);
+            buttonAnular.Name = "buttonAnular";
+            buttonAnular.Size = new Size(101, 41);
+            buttonAnular.TabIndex = 1;
+            buttonAnular.Text = "Anular";
+            buttonAnular.UseVisualStyleBackColor = true;
+            // 
+            // buttonLimpiar
+            // 
+            buttonLimpiar.Location = new Point(85, 48);
+            buttonLimpiar.Name = "buttonLimpiar";
+            buttonLimpiar.Size = new Size(101, 41);
+            buttonLimpiar.TabIndex = 0;
+            buttonLimpiar.Text = "Limpiar";
+            buttonLimpiar.UseVisualStyleBackColor = true;
             // 
             // FrmProductEditor
             // 
@@ -410,8 +411,8 @@
         private TextBox textBox4;
         private TextBox textBox3;
         private TextBox textBox2;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox textCodigo;
+        private Button buttonLimpiar;
         private Label label1;
         private TextBox textBox12;
         private TextBox textBox11;
@@ -431,12 +432,25 @@
         private Label label13;
         private TextBox textBox10;
         private Panel panel2;
-        private Button button3;
-        private Button button2;
+        private Button buttonCrear;
+        private Button buttonAnular;
         private Label label15;
         private TextBox textBox15;
-        private ComboBox comboBox1;
+        private ComboBox comboITBIS;
         private DateTimePicker dateTimePicker2;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimeFechaExpi;
+        private DateTimePicker dateTimeFecha;
+        private TextBox textUtilidad;
+        private TextBox textUltPrecio;
+        private TextBox textDescuento;
+        private TextBox textCantidad;
+        private TextBox textMinimoExist;
+        private TextBox textDistribuidor;
+        private TextBox textUnidMedida;
+        private TextBox textPrecio;
+        private TextBox textCosto;
+        private TextBox textDescripcion;
+        private Label label16;
+        private ComboBox comboActivo;
     }
 }

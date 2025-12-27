@@ -11,6 +11,23 @@ namespace Business.Negocio
 {
     public class InvoiceBLL
     {
+        private readonly InvoiceDAL invoiceDAL;
+        private readonly CustomerBLL customerBLL;
+        private readonly InvoiceDetailDAL invoiceDetailDAL;
+        private readonly StockMovementBLL stockMovementBLL;
+        private readonly ProductBLL productBLL;
+
+        public InvoiceBLL(InvoiceDAL _invoiceDAL, CustomerBLL _customerBLL, InvoiceDetailDAL _invoiceDetailDAL, StockMovementBLL _stockMovementBLL, ProductBLL _productBLL)
+        {
+            invoiceDAL = _invoiceDAL;
+            customerBLL = _customerBLL;
+            invoiceDetailDAL = _invoiceDetailDAL;
+            stockMovementBLL = _stockMovementBLL;
+
+        }
+        private readonly DBHelper dbHelper = new DBHelper();
+
+        /*
         private readonly InvoiceDAL invoiceDAL = new InvoiceDAL();
         private readonly CustomerBLL customerBLL = new CustomerBLL();
         private readonly InvoiceDetailDAL invoiceDetailDAL = new InvoiceDetailDAL();
@@ -18,12 +35,16 @@ namespace Business.Negocio
 
         private readonly ProductBLL productBLL = new ProductBLL();
         private readonly DBHelper dbHelper = new DBHelper();
+        */
 
         //private readonly string connectionString = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
 
         // -------------------------------------------------------------------
         // 1. CREAR FACTURA COMPLETA (TRANSACCIONAL) ➕
 
+
+
+        //-------------------------------------solucciona eso de dbHelper porque no se debe trabajar con el en la capa negocio----------------------------------
         public int CreateInvoice(Invoice invoice)
         {
 

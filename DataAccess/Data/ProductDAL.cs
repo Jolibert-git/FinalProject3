@@ -12,15 +12,20 @@ namespace DataAccess.Data
 {
     public class ProductDAL
     {
-        private readonly DBHelper dbHelper = new DBHelper();
+                                                                                            //private readonly DBHelper dbHelper = new DBHelper(
+        private readonly IDBHelper dbHelper;                                               //= new IDBHelper();
 
+        public ProductDAL(IDBHelper _dbHelper)
+        {
+            this.dbHelper = _dbHelper;
+        }
 
         //validate existen product
         public bool ValidateExistencesProduct(string code)
         {
             using (SqlConnection conn = dbHelper.OpenConnection())
             {
-                string storeProdcedure = "ValidatedProduct";
+                string storeProdcedure = "ValidateProduct";
 
                 SqlParameter[] parameter = new SqlParameter[]
                 {
@@ -62,7 +67,8 @@ namespace DataAccess.Data
                     new SqlParameter("@lastPriceProduct", (object)product.LastPriceProduct ?? DBNull.Value),
                     new SqlParameter("@utilityProduct", (object)product.UtilityProduct ?? DBNull.Value),
                     new SqlParameter("@minimunExistenProduct", (object)product.MinimunExistenProduct ?? DBNull.Value),
-                    new SqlParameter("@taxProduct", product.TaxProduct)
+                    new SqlParameter("@taxProduct", product.TaxProduct),
+                    new SqlParameter("@isActive", product.IsActive)
                 };
 
                 int rowsAffected = dbHelper.ExecuteNonQuery("InsertProduct", parameters);
@@ -97,7 +103,8 @@ namespace DataAccess.Data
                     new SqlParameter("@lastPriceProduct", (object)product.LastPriceProduct ?? DBNull.Value),
                     new SqlParameter("@utilityProduct", (object)product.UtilityProduct ?? DBNull.Value),
                     new SqlParameter("@minimunExistenProduct", (object)product.MinimunExistenProduct ?? DBNull.Value),
-                    new SqlParameter("@taxProduct", product.TaxProduct)
+                    new SqlParameter("@taxProduct", product.TaxProduct),
+                    new SqlParameter("@IsActive", product.IsActive)
                 };
 
                 int rowsAffected = dbHelper.ExecuteNonQuery("UpdateProduct", parameters);
@@ -199,28 +206,7 @@ namespace DataAccess.Data
 
                 // 2. Columna faltante en el mapeo, pero presente en el SP/Reader. Asumiendo que es BIT (bool o int)
                 IsActive = Convert.ToInt32(GetValueOrDefault("IsActive") ?? 0) == 1
-                /*
-                CodeProduct = GetValueOrDefault("CodeProduct")?.ToString(),
-                NameProduct = GetValueOrDefault("NameProduct")?.ToString(),
-                PriceProduct = Convert.ToDecimal(GetValueOrDefault("PriceProduct") ?? 0.00m),
-                StockProduct = Convert.ToDecimal(GetValueOrDefault("StockProduct") ?? 0.00m),
-                UnitOfMeasure = GetValueOrDefault("UnitOfMeasure")?.ToString(),
-
-                // Conversión de fechas y opcionales
-                ExpiryDateProduct = GetValueOrDefault("ExpiryDateProduct") == null ? (DateTime?)null : Convert.ToDateTime(GetValueOrDefault("ExpiryDateProduct")),
-                LocationProduct = GetValueOrDefault("LocationProduct")?.ToString(),
-                CodeDistributor = GetValueOrDefault("CodeDistributor")?.ToString(),
-
-                CostProduct = Convert.ToDecimal(GetValueOrDefault("CostProduct") ?? 0.00m),
-                DiscountCostProduct = GetValueOrDefault("DiscountCostProduct") == null ? (decimal?)null : Convert.ToDecimal(GetValueOrDefault("discountCostProduct")),
-                DateInProduct = GetValueOrDefault("DateInProduct") == null ? (DateTime?)null : Convert.ToDateTime(GetValueOrDefault("dateInProduct")),
-                DiscountSellProduct = GetValueOrDefault("DiscountSellProduct") == null ? (decimal?)null : Convert.ToDecimal(GetValueOrDefault("discountSellProduct")),
-                LastPriceProduct = GetValueOrDefault("LastPriceProduct") == null ? (decimal?)null : Convert.ToDecimal(GetValueOrDefault("lastPriceProduct")),
-                UtilityProduct = GetValueOrDefault("UtilityProduct")?.ToString(),
-                MinimunExistenProduct = GetValueOrDefault("MinimunExistenProduct") == null ? (decimal?)null : Convert.ToDecimal(GetValueOrDefault("minimunExistenProduct")),
-                TaxProduct = Convert.ToDecimal(GetValueOrDefault("TaxProduct") ?? 0.00m),
-                IsActive = Convert.ToInt32(GetValueOrDefault("IsActive") ?? 0) == 1
-                */
+                
             };
 
             return product;
@@ -237,15 +223,7 @@ namespace DataAccess.Data
                                                            //SqlDataReader reder = null; 
 
             // 1. Consulta SQL COMPLETA (Esta parte es correcta)
-            /*string sqlQuery = @"
-             SELECT 
-                      CodeProduct, NameProduct, PriceProduct, CostProduct, StockProduct, TaxProduct, 
-                      ExpiryDateProduct, IsActive, UnitOfMeasure, CodeDistributor, 
-                      LocationProduct, DiscountCostProduct, DateInProduct, DiscountSellProduct, 
-                      LastPriceProduct, UtilityProduct, MinimunExistenProduct 
-                      FROM Product 
-                      WHERE IsActive = 1; 
-                         ";*/
+            
 
             try
             {
