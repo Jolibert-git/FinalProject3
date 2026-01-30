@@ -1,6 +1,7 @@
 ﻿using Business.Negocio;
 using Model.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,53 +18,38 @@ namespace Screen.Views
     public partial class FrmSalesHistory : Form
     {
         private readonly InvoiceBLL _invoiceBLL ;
-        
-
-        //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
-        //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
 
         // Propiedad para almacenar el ID de la factura seleccionada (si aplica)
         public int SelectedInvoiceId { get; private set; } = -1;
 
         public FrmSalesHistory(InvoiceBLL _invoiceBLL)
         {
+            this._invoiceBLL = _invoiceBLL;
             InitializeComponent();
             InitializeFormDefaults();
             InitializeDataGridView();
             LoadInvoices();
-            this._invoiceBLL = _invoiceBLL;
-
         }
 
         private void InitializeFormDefaults()
         {
-            // Inicializar el DateTimePicker con la fecha de hoy.
-            // Para cumplir con "la fecha de mañana hacia atrás", se establece la fecha
-            // con un día extra para que al hacer la búsqueda, incluya las de hoy.
+
+            // start  dtpFecha with  date of today
+            // add one day for include the invoice today
             dtpFecha.Value = DateTime.Today.AddDays(1);
         }
 
         private void InitializeDataGridView()
         {
-            dgvSalesHistory.AutoGenerateColumns = false;
+            dgvSalesHistory.AutoGenerateColumns = false;       // It is false becouse who generel is propiry of 
             dgvSalesHistory.Columns.Clear();
 
             // Columna oculta para el ID (Primary Key)
             dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn()
             {
-                Name = "CodeInvoice",
-                HeaderText = "No. Factura",
-                DataPropertyName = "CodeInvoice",
-                Visible = true,
-                ReadOnly = true
-            });
-
-            // Columna Nombre del Cliente
-            dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "CustomerFullName",
-                HeaderText = "Nombre del Cliente",
-                DataPropertyName = "CustomerFullName", // Asumiendo que InvoiceHeader tiene esta propiedad
+                Name = "Numero de Factura",
+                HeaderText = "No. Factura",               // it is title about Colunm
+                DataPropertyName = "CodeInvoiceHeader",   //it is propiry of the object invoices stay in the column 
                 Visible = true,
                 ReadOnly = true
             });
@@ -72,39 +58,84 @@ namespace Screen.Views
             dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "DateHeader",
-                HeaderText = "Fecha",
-                DataPropertyName = "DateHeader",
+                HeaderText = "Fecha",               // it is title about Colunm
+                DataPropertyName = "DateHeader",   //it is propiry of the object invoices stay in the column 
                 Visible = true,
                 ReadOnly = true,
                 DefaultCellStyle = { Format = "yyyy-MM-dd" }
             });
 
+            //merthod Payment
+            dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "MathodPayment",
+                HeaderText = "Metodo",                    // it is title about Colunm
+                DataPropertyName = "PaymentMethodCode",  //it is propiry of the object invoices stay in the column 
+                Visible = true,
+                ReadOnly = true,
+            });
+
+
+            //subAmount of invoice
+            dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "SubAmount",
+                HeaderText = "Sub Total",                 // it is title about Colunm
+                DataPropertyName = "SubtotalHeader",      //it is propiry of the object invoices stay in the column 
+                Visible = true,
+                ReadOnly = true
+            });
+
+
+
+            //Amount of Invoice 
+
+            dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "TotalInvoice",
+                HeaderText = "Total",                   // it is title about Colunm
+                DataPropertyName = "TotalAmountHeader", //it is propiry of the object invoices stay in the column 
+                Visible = true,
+                ReadOnly = true,
+
+            });
+
+
+            // Columna Nombre del Cliente
+            dgvSalesHistory.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "CustomerFullName",
+                HeaderText = "Codigo del Cliente",  // it is title about Colunm
+                DataPropertyName = "CodeCustomer", //it is propiry of the object invoices stay in the column 
+                Visible = true,
+                ReadOnly = true
+            });
+
+            
             // Permitir selección de fila completa y solo selección simple
             dgvSalesHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSalesHistory.MultiSelect = false;
         }
 
-        /// Carga las facturas realizadas hasta (e incluyendo) la fecha seleccionada.
+        /// load invoice ready until date selected.
         /// </summary>
         private void LoadInvoices()
         {
             try
             {
-                // La búsqueda es de la fecha seleccionada hacia atrás.
+                
                 DateTime searchDate = dtpFecha.Value;
 
-                // Llamar a la lógica de negocio para obtener la lista de encabezados de factura
-                // Se asume la existencia de un método GetInvoicesBeforeOrOnDate(DateTime date) en InvoiceBLL.
-                // Se ordena por CodeInvoice (Primary Key identity) de forma descendente (mayor a menor).
+                
                 List<InvoiceHeader> invoices = _invoiceBLL.GetInvoicesBeforeDate(searchDate)
-                                                           .OrderByDescending(i => i.CodeInvoiceHeader)
-                                                           .ToList();
-
+                                                           .OrderByDescending(i => i.CodeInvoiceHeader)   //used LINQ for consult and agrout in descendent for CodeInvoice...
+                                                           .ToList();                                     // it is more easy to use CodeInvoice... that DateInvoice... and it is the same result
+                
                 dgvSalesHistory.DataSource = invoices;
 
                 if (invoices.Any())
                 {
-                    // Seleccionar la primera fila por defecto para una mejor UX
+                    // Seleccionar la primera fila por defecto
                     dgvSalesHistory.ClearSelection();
                     dgvSalesHistory.Rows[0].Selected = true;
                 }
@@ -116,9 +147,11 @@ namespace Screen.Views
             }
         }
 
+
+        //
         private void dtpFecha_ValueChanged(object sender, EventArgs e)
         {
-            // Recargar las facturas cada vez que cambia la fecha
+            // Load dataGriViev each chage date 
             LoadInvoices();
         }
 

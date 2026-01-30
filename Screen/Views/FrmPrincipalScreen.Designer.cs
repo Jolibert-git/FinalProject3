@@ -86,7 +86,7 @@
             // 
             // btnEditarDistribuidor
             // 
-            btnEditarDistribuidor.Location = new Point(638, 60);
+            btnEditarDistribuidor.Location = new Point(635, 60);
             btnEditarDistribuidor.Name = "btnEditarDistribuidor";
             btnEditarDistribuidor.Size = new Size(106, 88);
             btnEditarDistribuidor.TabIndex = 10;

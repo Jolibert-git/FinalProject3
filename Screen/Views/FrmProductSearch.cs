@@ -24,12 +24,14 @@ namespace Screen.Views
 
         public FrmProductSearch(ProductBLL _productBLL)
         {
+            this._productBLL = _productBLL;
+            this.Text = "Búsqueda de Productos";
             InitializeComponent();
             InitializeDataGridView();
             LoadAllProducts();
-            this.Text = "Búsqueda de Productos";
+            //this.Text = "Búsqueda de Productos";
             this.dgvProducts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellDoubleClick);
-            this._productBLL = _productBLL;
+            //this._productBLL = _productBLL;
         }
 
         private void InitializeDataGridView()

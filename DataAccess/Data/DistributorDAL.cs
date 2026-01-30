@@ -19,6 +19,24 @@ namespace DataAccess.Data
             this.dbHelper = _dbHelper;
         }                                                             //private readonly DBHelper dbHelper = new DBHelper();
 
+        //-----------------------------------------------
+        // METHOD FOR VALIDATE IF DISTRIBUTE EXIST
+
+        public bool ValidateDistributor(string code)
+        {
+            SqlConnection conn = dbHelper.OpenConnection();
+
+            SqlParameter[] parameter = new SqlParameter[]
+            {
+                new SqlParameter("CodeDistributor",code)
+            };
+
+            string storeProcedure = "ValidateDistributor";
+
+            return dbHelper.ValidateExisten(conn, storeProcedure, parameter);
+        }
+
+
         // -------------------------------------------------------------------
         // 1. OBTENER DISTRIBUIDOR POR CÓDIGO (Para uso en BLL) 🔍
 
@@ -33,7 +51,6 @@ namespace DataAccess.Data
                 SqlParameter[] parameters = new SqlParameter[]
                 {
                     new SqlParameter("@codeDistributor", code),
-                    new SqlParameter("@nameDistributor", DBNull.Value)
                 };
 
                 connection = dbHelper.OpenConnection();
@@ -41,7 +58,7 @@ namespace DataAccess.Data
 
                 if (reader.Read())
                 {
-                    distributor = MapDistributorFromReader(reader);
+                    distributor = MapDistributorFromReader(reader);   //method MapDistributorFromReader(reader)  is who Distributes the value in the object 
                 }
             }
             catch (Exception ex)
@@ -163,25 +180,30 @@ namespace DataAccess.Data
 
         private Distributor MapDistributorFromReader(SqlDataReader reader)
         {
-            // Función auxiliar para manejar DBNull en campos opcionales
-            object GetValueOrDefault(string columnName)
+
+
+            // Functin auxiliar
+
+
+            object GetValueOrDefault(string columnName)// I used Object because object can retunt int/string/decimal/null wharever 
             {
-                int colIndex = reader.GetOrdinal(columnName);
-                return reader.IsDBNull(colIndex) ? null : reader.GetValue(colIndex);
+                int colIndex = reader.GetOrdinal(columnName);                         // It's get the value of reader(Store Procedure) column   
+                return reader.IsDBNull(colIndex) ? null : reader.GetValue(colIndex);  // that return with ternary condition if value in data base is DBNull the value is null if else return value in the index 
             }
 
-            // Mapeamos las columnas de la BD a las propiedades camelCase de la entida
+            //Asigne value with the auxiliar GetValueOrDefault(string columnName)
+
             Distributor distributor = new Distributor
             {
-                codeDistributor = GetValueOrDefault("codeDistributor")?.ToString(),
-                nameDistributor = GetValueOrDefault("nameDistributor")?.ToString(),
-                rncDistributor = GetValueOrDefault("rncDistributor")?.ToString(),
-                phoneDistributor = GetValueOrDefault("phoneDistributor")?.ToString(),
-                locationDistributor = GetValueOrDefault("locationDistributor")?.ToString(),
-                emailDistributor = GetValueOrDefault("emailDistributor")?.ToString(),
-                bancoDistributor = GetValueOrDefault("bancoDistributor")?.ToString(),
-                cuentaDistributor = GetValueOrDefault("cuentaDistributor")?.ToString(),
-                numCuentaDistrubutor = GetValueOrDefault("numCuentaDistrubutor")?.ToString()
+                codeDistributor = GetValueOrDefault("CodeDistributor")?.ToString(),
+                nameDistributor = GetValueOrDefault("NameDistributor")?.ToString(),
+                phoneDistributor = GetValueOrDefault("PhoneDistributor")?.ToString(),
+                locationDistributor = GetValueOrDefault("LocationDistributor")?.ToString(),
+                bancoDistributor = GetValueOrDefault("BankDistributor")?.ToString(),
+                cuentaDistributor = GetValueOrDefault("TypeAcountBank")?.ToString(),
+                numCuentaDistrubutor = GetValueOrDefault("AcountBank")?.ToString(),
+                emailDistributor = GetValueOrDefault("ContactEmail")?.ToString(),
+                rncDistributor = GetValueOrDefault("RNCDistributor")?.ToString(),
             };
 
             return distributor;

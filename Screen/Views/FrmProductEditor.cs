@@ -19,7 +19,10 @@ namespace Screen.Views
     public partial class FrmProductEditor : Form
     {
         private readonly ProductBLL _productBLL;
+
         private Product _product = new Product();
+
+
         public FrmProductEditor(ProductBLL _productBLL)
         {
             InitializeComponent();

@@ -21,6 +21,32 @@ namespace DataAccess.Data
             this.dbHelper = _dbHelper;
         }
 
+
+        public bool ValidateCustomer(string code)
+        { 
+            try
+            {
+                SqlConnection conn = dbHelper.OpenConnection();
+
+                SqlParameter[] parameter = new SqlParameter[]
+                {
+                    new SqlParameter("CodeCustomer",code)
+                };
+
+                string storeProcedure = "ValidateCustomer";
+
+                return dbHelper.ValidateExisten(conn,storeProcedure,parameter);
+
+
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error in ValidateExisten>>CustomerDAL{Ex}");
+                throw;
+            }
+            
+        }
+
         // -------------------------------------------------------------------
         // 1. OBTENER CLIENTE POR CÓDIGO (MÉTODO CRÍTICO)
 
@@ -34,7 +60,7 @@ namespace DataAccess.Data
             {
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-            new SqlParameter("@CodeCustomer", codeCustomer)
+                   new SqlParameter("@CodeCustomer", codeCustomer)
                 };
                 connection = dbHelper.OpenConnection();
                 reader = dbHelper.ExecuteReader(connection, "ReadCustomer", parameters);

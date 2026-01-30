@@ -1,6 +1,6 @@
 ﻿namespace Screen.Views
 {
-    partial class FrmNewCustomer
+    partial class FrmCustomerEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             panel1 = new Panel();
             label13 = new Label();
-            textBox10 = new TextBox();
+            textCodigo = new TextBox();
             label12 = new Label();
             label11 = new Label();
             label10 = new Label();
@@ -43,18 +43,18 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            textBox13 = new TextBox();
-            textBox12 = new TextBox();
-            textBox11 = new TextBox();
-            textBox9 = new TextBox();
-            textBox8 = new TextBox();
-            textBox7 = new TextBox();
-            textBox6 = new TextBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            textDescontado = new TextBox();
+            textFGastado = new TextBox();
+            textGananncias = new TextBox();
+            textCedula = new TextBox();
+            textTelefono = new TextBox();
+            textDireccion = new TextBox();
+            textCorreo = new TextBox();
+            textRNC = new TextBox();
+            textCiudad = new TextBox();
+            textArea = new TextBox();
+            textAutDescuento = new TextBox();
+            textNombre = new TextBox();
             panel2 = new Panel();
             button3 = new Button();
             button2 = new Button();
@@ -67,7 +67,7 @@
             // 
             panel1.BackColor = SystemColors.InactiveBorder;
             panel1.Controls.Add(label13);
-            panel1.Controls.Add(textBox10);
+            panel1.Controls.Add(textCodigo);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(label11);
             panel1.Controls.Add(label10);
@@ -80,18 +80,18 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox13);
-            panel1.Controls.Add(textBox12);
-            panel1.Controls.Add(textBox11);
-            panel1.Controls.Add(textBox9);
-            panel1.Controls.Add(textBox8);
-            panel1.Controls.Add(textBox7);
-            panel1.Controls.Add(textBox6);
-            panel1.Controls.Add(textBox5);
-            panel1.Controls.Add(textBox4);
-            panel1.Controls.Add(textBox3);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(textDescontado);
+            panel1.Controls.Add(textFGastado);
+            panel1.Controls.Add(textGananncias);
+            panel1.Controls.Add(textCedula);
+            panel1.Controls.Add(textTelefono);
+            panel1.Controls.Add(textDireccion);
+            panel1.Controls.Add(textCorreo);
+            panel1.Controls.Add(textRNC);
+            panel1.Controls.Add(textCiudad);
+            panel1.Controls.Add(textArea);
+            panel1.Controls.Add(textAutDescuento);
+            panel1.Controls.Add(textNombre);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(776, 251);
@@ -106,12 +106,12 @@
             label13.TabIndex = 29;
             label13.Text = "CODIGO";
             // 
-            // textBox10
+            // textCodigo
             // 
-            textBox10.Location = new Point(354, 16);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(100, 23);
-            textBox10.TabIndex = 28;
+            textCodigo.Location = new Point(354, 16);
+            textCodigo.Name = "textCodigo";
+            textCodigo.Size = new Size(100, 23);
+            textCodigo.TabIndex = 28;
             // 
             // label12
             // 
@@ -221,89 +221,89 @@
             label1.TabIndex = 16;
             label1.Text = "NOMBRE";
             // 
-            // textBox13
+            // textDescontado
             // 
-            textBox13.Location = new Point(636, 112);
-            textBox13.Name = "textBox13";
-            textBox13.Size = new Size(100, 23);
-            textBox13.TabIndex = 15;
+            textDescontado.Location = new Point(636, 112);
+            textDescontado.Name = "textDescontado";
+            textDescontado.Size = new Size(100, 23);
+            textDescontado.TabIndex = 15;
             // 
-            // textBox12
+            // textFGastado
             // 
-            textBox12.Location = new Point(636, 152);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(100, 23);
-            textBox12.TabIndex = 14;
+            textFGastado.Location = new Point(636, 152);
+            textFGastado.Name = "textFGastado";
+            textFGastado.Size = new Size(100, 23);
+            textFGastado.TabIndex = 14;
             // 
-            // textBox11
+            // textGananncias
             // 
-            textBox11.Location = new Point(636, 191);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(100, 23);
-            textBox11.TabIndex = 13;
+            textGananncias.Location = new Point(636, 191);
+            textGananncias.Name = "textGananncias";
+            textGananncias.Size = new Size(100, 23);
+            textGananncias.TabIndex = 13;
             // 
-            // textBox9
+            // textCedula
             // 
-            textBox9.Location = new Point(127, 117);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(100, 23);
-            textBox9.TabIndex = 11;
+            textCedula.Location = new Point(127, 117);
+            textCedula.Name = "textCedula";
+            textCedula.Size = new Size(100, 23);
+            textCedula.TabIndex = 11;
             // 
-            // textBox8
+            // textTelefono
             // 
-            textBox8.Location = new Point(127, 157);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(100, 23);
-            textBox8.TabIndex = 10;
+            textTelefono.Location = new Point(127, 157);
+            textTelefono.Name = "textTelefono";
+            textTelefono.Size = new Size(100, 23);
+            textTelefono.TabIndex = 10;
             // 
-            // textBox7
+            // textDireccion
             // 
-            textBox7.Location = new Point(127, 196);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(100, 23);
-            textBox7.TabIndex = 9;
+            textDireccion.Location = new Point(127, 196);
+            textDireccion.Name = "textDireccion";
+            textDireccion.Size = new Size(100, 23);
+            textDireccion.TabIndex = 9;
             // 
-            // textBox6
+            // textCorreo
             // 
-            textBox6.Location = new Point(374, 77);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(100, 23);
-            textBox6.TabIndex = 8;
+            textCorreo.Location = new Point(374, 77);
+            textCorreo.Name = "textCorreo";
+            textCorreo.Size = new Size(100, 23);
+            textCorreo.TabIndex = 8;
             // 
-            // textBox5
+            // textRNC
             // 
-            textBox5.Location = new Point(374, 117);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 7;
+            textRNC.Location = new Point(374, 117);
+            textRNC.Name = "textRNC";
+            textRNC.Size = new Size(100, 23);
+            textRNC.TabIndex = 7;
             // 
-            // textBox4
+            // textCiudad
             // 
-            textBox4.Location = new Point(374, 157);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 6;
+            textCiudad.Location = new Point(374, 157);
+            textCiudad.Name = "textCiudad";
+            textCiudad.Size = new Size(100, 23);
+            textCiudad.TabIndex = 6;
             // 
-            // textBox3
+            // textArea
             // 
-            textBox3.Location = new Point(374, 196);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 5;
+            textArea.Location = new Point(374, 196);
+            textArea.Name = "textArea";
+            textArea.Size = new Size(100, 23);
+            textArea.TabIndex = 5;
             // 
-            // textBox2
+            // textAutDescuento
             // 
-            textBox2.Location = new Point(636, 77);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 4;
+            textAutDescuento.Location = new Point(636, 77);
+            textAutDescuento.Name = "textAutDescuento";
+            textAutDescuento.Size = new Size(100, 23);
+            textAutDescuento.TabIndex = 4;
             // 
-            // textBox1
+            // textNombre
             // 
-            textBox1.Location = new Point(127, 77);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 3;
+            textNombre.Location = new Point(127, 77);
+            textNombre.Name = "textNombre";
+            textNombre.Size = new Size(100, 23);
+            textNombre.TabIndex = 3;
             // 
             // panel2
             // 
@@ -344,7 +344,7 @@
             button1.Text = "VOLVER";
             button1.UseVisualStyleBackColor = true;
             // 
-            // FrmNewCustomer
+            // FrmCustomerEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -352,7 +352,7 @@
             ClientSize = new Size(800, 483);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Name = "FrmNewCustomer";
+            Name = "FrmCustomerEditor";
             Text = "FrmNewCustomer";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -364,7 +364,7 @@
 
         private Panel panel1;
         private Label label13;
-        private TextBox textBox10;
+        private TextBox textCodigo;
         private Label label12;
         private Label label11;
         private Label label10;
@@ -377,18 +377,18 @@
         private Label label3;
         private Label label2;
         private Label label1;
-        private TextBox textBox13;
-        private TextBox textBox12;
-        private TextBox textBox11;
-        private TextBox textBox9;
-        private TextBox textBox8;
-        private TextBox textBox7;
-        private TextBox textBox6;
-        private TextBox textBox5;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox textDescontado;
+        private TextBox textFGastado;
+        private TextBox textGananncias;
+        private TextBox textCedula;
+        private TextBox textTelefono;
+        private TextBox textDireccion;
+        private TextBox textCorreo;
+        private TextBox textRNC;
+        private TextBox textCiudad;
+        private TextBox textArea;
+        private TextBox textAutDescuento;
+        private TextBox textNombre;
         private Panel panel2;
         private Button button3;
         private Button button2;

@@ -12,6 +12,7 @@ namespace DataAccess.Data
 {
     public class DBHelper: IDBHelper
     {
+        public readonly string _StringConnection = "Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;";
         SqlConnection Connection = new SqlConnection("Data Source=DESKTOP-OA67FE6\\SQLEXPRESS;DATABASE=GcompleteQuery;Integrated Security=True;TrustServerCertificate=True;");
         
         //
@@ -50,10 +51,40 @@ namespace DataAccess.Data
 
         public SqlConnection OpenConnection()
         {
+            //SqlConnection connection = new SqlConnection(_StringConnection);
             try
             {
+                if (Connection == null)
+                {
+                    Connection = new SqlConnection(_StringConnection);
+                }
+
+                // 2. Si la conexión está en un estado "zombi" o dañado (Broken o Connecting)
+                // la cerramos a la fuerza para poder reabrirla.
+                if (Connection.State == ConnectionState.Broken || Connection.State == ConnectionState.Connecting)
+                {
+                    Connection.Close();
+                }
+
+                // 3. Solo si está cerrada intentamos abrirla
+                if (Connection.State == ConnectionState.Closed)
+                {
+                    Connection.Open();
+                }
+
+
+
+
+                /*
+
+                if (Connection.State != ConnectionState.Open)
+                {
+                    Connection.Open();
+                    return Connection;
+                }
+                */
+
                 //SqlConnection connection = new SqlConnection(Connection);
-                Connection.Open();
                 return Connection;
             }
             catch (Exception ex)

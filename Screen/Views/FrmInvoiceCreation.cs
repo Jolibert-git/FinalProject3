@@ -24,6 +24,7 @@ namespace Screen.Views
         private readonly FrmSelecCodeProduct _selecCodeProduct;
         private readonly FrmProductSearch _productSearch;
         private readonly FrmSalesHistory _salesHistory;
+        //private readonly FrmInvoiceView _frmInvoiceView;
         /*
         private readonly CustomerBLL _customerBLL = new CustomerBLL();
         private readonly ProductBLL _productBLL = new ProductBLL();
@@ -39,8 +40,17 @@ namespace Screen.Views
         // Propiedad para almacenar el producto seleccionado desde FrmProductSearch
         public Product SelectedProduct { get; set; }
 
-        public FrmInvoiceCreation(CustomerBLL _customerBLL, ProductBLL _productBLL, InvoiceBLL _invoiceBLL, PaymentBLL _paymentBLL, FrmSelecCodeProduct _selecCodeProduct, FrmProductSearch _productSearch, FrmSalesHistory _salesHistory)
+        public FrmInvoiceCreation(CustomerBLL _customerBLL, ProductBLL _productBLL, InvoiceBLL _invoiceBLL, PaymentBLL _paymentBLL, FrmSelecCodeProduct _selecCodeProduct, FrmProductSearch _productSearch, FrmSalesHistory _salesHistory/*, FrmInvoiceView _frmInvoiceView*/)
         {
+            this._customerBLL = _customerBLL;
+            this._productBLL = _productBLL;
+            this._invoiceBLL = _invoiceBLL;
+            this._paymentBLL = _paymentBLL;
+            this._selecCodeProduct = _selecCodeProduct;
+            this._productSearch = _productSearch;
+            this._salesHistory = _salesHistory;
+            //this._frmInvoiceView = _frmInvoiceView;
+
             InitializeComponent();
             InitializeNewInvoiceNumber();
             InitializeFormDefaults();
@@ -50,7 +60,7 @@ namespace Screen.Views
             _invoiceIdToLoad = null;
             this.dgvProductos.SelectionChanged += new System.EventHandler(this.dgvProductos_SelectionChanged);
             this.dtpFechaVencimiento.ValueChanged += new System.EventHandler(this.dtpFechaVencimiento_ValueChanged);
-
+            /*
             this._customerBLL = _customerBLL;
             this._productBLL = _productBLL;
             this._invoiceBLL = _invoiceBLL;
@@ -58,6 +68,7 @@ namespace Screen.Views
             this._selecCodeProduct = _selecCodeProduct;
             this._productSearch = _productSearch;
             this._salesHistory = _salesHistory;
+            */
         }
         
         public FrmInvoiceCreation(int invoiceId) //: this() 
@@ -347,10 +358,16 @@ namespace Screen.Views
 
 
             decimal totalAmount = subtotal;
+
             subtotal = totalAmount - totalITBIS;
 
-            lblMonto.Text = totalAmount.ToString("C2"); // Formato de moneda
+            lblMonto.Text = totalAmount.ToString("C2"); // ToString("C2"); it's for format of maney "$"
+
+            lblMonto.Tag = totalAmount;  //it's for i will use the value in other method without revert ToString("C2") . i use in method btnFacturar_Click
+
             lblITBIS.Text = totalITBIS.ToString("C2");
+
+            lblITBIS.Tag = totalITBIS; //i will use in in method btnFacturar_Click
 
             UpdateOverallITBISCmb(currentInvoiceDetails);
         }
@@ -555,15 +572,26 @@ namespace Screen.Views
 
                 int paymentMethodCode = (int)cmbFormaPago.SelectedValue;
 
-                // 1. Crear el objeto InvoiceHeader
+                decimal itbs = (decimal)(lblITBIS.Tag ?? 0m);   //it Don't save because the string have the caracter "$"
+                decimal monto = (decimal)(lblMonto.Tag ?? 0m);  //it Don't save because the string have the caracter "$"
+                decimal subTotal = monto - itbs;
+
+
+                //--------------------remenber create logic for meansure descount----------------------------------------------------------
+
+
+                // 1. Create object InvoiceHeader
                 InvoiceHeader header = new InvoiceHeader
                 {
+                    TotalTaxHeader = itbs,
+                    TotalAmountHeader = monto,
+                    SubtotalHeader = subTotal,
                     DateHeader = dtpFecha.Value,
                     CodeCustomer = txtCodCliente.Text.Trim(),
                     StatusCode = cmbEstado.SelectedItem?.ToString(),
-                    PaymentMethodCode = paymentMethodCode, 
+                    PaymentMethodCode = paymentMethodCode,
                     DiscountRate = decimal.TryParse(txtDescuento.Text, out decimal discount) ? discount / 100 : 0,
-                    
+
                     NCF = cmbNCF.SelectedItem?.ToString(),
                     RNC = txtRNC.Text.Trim(),
                     CashRegisterNumber = cmbCaja.SelectedItem?.ToString(),
@@ -599,7 +627,7 @@ namespace Screen.Views
                 MessageBox.Show($"Factura No. {invoiceId} creada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Opcional: Abrir FrmInvoiceView para ver la factura recién creada
-                using (FrmInvoiceView invoiceViewForm = new FrmInvoiceView(invoiceId))
+                using (FrmInvoiceView invoiceViewForm = new FrmInvoiceView(invoiceId,_invoiceBLL))
                 {
                     invoiceViewForm.ShowDialog();
                 }
@@ -652,21 +680,26 @@ namespace Screen.Views
             }
         }
         
-
+        
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {
+            /*
             using (FrmSelectCodeCustomer selectCodeCustomer = new FrmSelectCodeCustomer())
             {
                 selectCodeCustomer.ShowDialog();
             }
+            */
         }
+        
 
         private void btnCrearDistribuido_Click(object sender, EventArgs e)
         {
+            /*
             using (FrmDistributorEditor distributorEditorForm = new FrmDistributorEditor())
             {
                 distributorEditorForm.ShowDialog();
             }
+            */
         }
 
         private void btnMovimientoProducto_Click(object sender, EventArgs e)

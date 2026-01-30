@@ -224,11 +224,11 @@ namespace DataAccess.Data
 
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-            new SqlParameter("@limitDate", effectiveLimitDate)
+                     new SqlParameter("@limitDate", effectiveLimitDate)
                 };
 
                 connection = dbHelper.OpenConnection();
-                reader = dbHelper.ExecuteReader(connection, "ReadInvoiceHeaderByDate", parameters);
+                reader = dbHelper.ExecuteReader(connection, "ReadInvoiceHeaderByDate", parameters); //THAT PROCEDURES DON'T EXIST IN SQL, FIX THAT
 
                 while (reader.Read())
                 {

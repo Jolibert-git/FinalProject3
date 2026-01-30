@@ -19,20 +19,23 @@ namespace Screen.Views
     public partial class FrmInvoiceView : Form
     {
         // Declara una variable privada para guardar el ID de la factura a mostrar
-        private readonly int _invoiceId;
+        private  int _invoiceId;
         private readonly InvoiceBLL _invoiceBLL ;
         //private readonly InvoiceBLL _invoiceBLL = new InvoiceBLL();
 
+        /*
         public FrmInvoiceView(InvoiceBLL _invoiceBLL)
         {
             InitializeComponent();
             this._invoiceBLL = _invoiceBLL;
         }
+        */
 
-        public FrmInvoiceView(int invoiceId)
+        public FrmInvoiceView(int invoiceId, InvoiceBLL _invoiceBLL)
         {
             InitializeComponent();
-            _invoiceId = invoiceId;// Llamar a la lógica de carga
+            this._invoiceBLL = _invoiceBLL;
+            this._invoiceId = invoiceId;// Llamar a la lógica de carga
             InitializeDetailsDataGridView();
             LoadInvoiceViewData(invoiceId);
         }

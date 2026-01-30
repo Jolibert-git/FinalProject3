@@ -57,8 +57,14 @@ namespace Screen
             // --- Registro de Capas (Basado en tus carpetas) ---
 
             // Datos y faltan clases
-            services.AddSingleton<DBHelper>();
+            services.AddTransient<IDBHelper, DBHelper>();
             services.AddTransient<CustomerDAL>();
+
+            services.AddTransient<InvoiceDetailDAL>();
+            services.AddTransient<PaymentDAL>();
+            services.AddTransient<PaymentMethodDAL>();
+            services.AddTransient<StockMovementDAL>();
+
             services.AddTransient<ProductDAL>();
             services.AddTransient<InvoiceDAL>();
             services.AddTransient<DistributorDAL>();
@@ -68,13 +74,22 @@ namespace Screen
             services.AddTransient<ProductBLL>();
             services.AddTransient<InvoiceBLL>();
             services.AddTransient<DistributorBLL>();
+            services.AddTransient<PaymentBLL>();
+            services.AddTransient<StockMovementBLL>();
 
             // Vistas (Formularios)
             services.AddSingleton<FrmPrincipalScreen>(); // Singleton para el principal
             services.AddTransient<FrmInvoiceCreation>(); // Transient para que sean nuevos cada vez
             services.AddTransient<FrmSelecCodeProduct>();
-            //services.AddTransient<FrmCustomerEditor>();
+            services.AddTransient<FrmCustomerEditor>();
             services.AddTransient<FrmProductEditor>();
+            services.AddTransient<FrmProductSearch>();
+            services.AddTransient<FrmSalesHistory>();
+            services.AddTransient<FrmSelectCodeCustomer>();
+            services.AddTransient<FrmSelectCodeDistributor>();
+            services.AddTransient<FrmStockMovement>();
+            services.AddTransient<FrmInvoiceView>();
+            services.AddTransient<FrmDistributorEditor>();
             // Agrega aquí cualquier otro formulario que uses
         }
 

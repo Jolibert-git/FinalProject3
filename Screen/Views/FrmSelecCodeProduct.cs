@@ -14,15 +14,12 @@ namespace Screen.Views
     public partial class FrmSelecCodeProduct : Form
     {
         public bool result;// VARIEBLE FOR SAVE VALUE THE EXIST O NOT EXIST ONE PRODUCT
-        public readonly ProductBLL ProductLogic;
+
+        public readonly ProductBLL ProductLogic;//
+
         public readonly FrmProductEditor formEditor;
 
-
-
         //ProductBLL  ProducLogic = new ProductBLL();
-
-
-
         public FrmSelecCodeProduct(ProductBLL ProductLogic, FrmProductEditor formEditor)
         {
             InitializeComponent();

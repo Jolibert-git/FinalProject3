@@ -30,7 +30,7 @@
         {
             panel1 = new Panel();
             button1 = new Button();
-            textBox1 = new TextBox();
+            textCodigo = new TextBox();
             panel2 = new Panel();
             label3 = new Label();
             label2 = new Label();
@@ -43,7 +43,7 @@
             // 
             panel1.BackColor = SystemColors.GradientInactiveCaption;
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(textCodigo);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(111, 90);
@@ -61,12 +61,12 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // textBox1
+            // textCodigo
             // 
-            textBox1.Location = new Point(202, 170);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(92, 23);
-            textBox1.TabIndex = 2;
+            textCodigo.Location = new Point(202, 170);
+            textCodigo.Name = "textCodigo";
+            textCodigo.Size = new Size(92, 23);
+            textCodigo.TabIndex = 2;
             // 
             // panel2
             // 
@@ -124,7 +124,7 @@
 
         private Panel panel1;
         private Button button1;
-        private TextBox textBox1;
+        private TextBox textCodigo;
         private Panel panel2;
         private Label label3;
         private Label label2;

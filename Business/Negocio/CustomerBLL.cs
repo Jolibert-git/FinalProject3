@@ -18,8 +18,24 @@ namespace Business.Negocio
             this._customerDAL = _customerDAL;
         }
 
+        
+        public bool ValidateCustomer(string code)
+        {
+            try
+            {
+                return _customerDAL.ValidateCustomer(code);
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error in ValidateCustomer>>CustomerBLl {Ex}");
+                throw;
+            }
+
+        }
+        
 
 
+        //GET CUSTOMER BY CODE(ID)
 
         public Customer GetCustomerByCode(string code)
         {

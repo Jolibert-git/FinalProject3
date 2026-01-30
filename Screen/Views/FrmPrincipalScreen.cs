@@ -16,13 +16,22 @@ namespace Screen.Views
     {
         public readonly FrmInvoiceCreation _invoiceCreation;
         public readonly FrmSelecCodeProduct _selecCodeProduct;
-        public FrmPrincipalScreen(FrmInvoiceCreation _invoiceCreation, FrmSelecCodeProduct _selecCodeProduct)
+        public readonly FrmSelectCodeCustomer _selectCodeCustomer;
+        public readonly FrmSelectCodeDistributor _selectCodeDistributor;
+        public readonly FrmSalesHistory _salesHistory;
+
+
+
+        public FrmPrincipalScreen(FrmInvoiceCreation _invoiceCreation, FrmSelecCodeProduct _selecCodeProduct, FrmSelectCodeCustomer _selectCodeCustomer, FrmSelectCodeDistributor _selectCodeDistributor, FrmSalesHistory _salesHistory)
         {
             InitializeComponent();
+            this._selectCodeCustomer = _selectCodeCustomer;
             this.WindowState = FormWindowState.Maximized;
             this.IsMdiContainer = true;
             this._invoiceCreation = _invoiceCreation;
             this._selecCodeProduct = _selecCodeProduct;
+            this._selectCodeDistributor = _selectCodeDistributor;
+            this._salesHistory = _salesHistory;
         }
 
         private void ShowForm<T>() where T : Form, new()
@@ -83,19 +92,43 @@ namespace Screen.Views
             formProduct.Show();
         }
 
+        
         private void btnEditarCliente_Click(object sender, EventArgs e)
         {
-            ShowForm<FrmSelectCodeCustomer>();
+            FrmSelectCodeCustomer formSelect = _selectCodeCustomer; /*new FrmInvoiceCreation()*/;
+
+            // 2. Establecer el 'Owner'. Esto asegura que el formulario aparezca encima del dueño (this).
+            formSelect.Owner = this;
+
+            // 3. Mostrar la ventana de forma NO MODAL.
+            formSelect.Show();
+
+
+            //ShowForm<FrmSelectCodeCustomer>();
         }
+        
 
         private void btnEditarDistribuidor_Click(object sender, EventArgs e)
         {
-            ShowForm<FrmSelectCodeDistributor>();
+            FrmSelectCodeDistributor frmSelect = _selectCodeDistributor;
+
+            frmSelect.Owner = this;
+
+            frmSelect.Show();
+
+            /*ShowForm<FrmSelectCodeDistributor>()*/;
         }
 
         private void btnHistorialVenta_Click(object sender, EventArgs e)
         {
+            FrmSalesHistory frmHistory = _salesHistory;
+
+            frmHistory.Owner = this;
+
+            frmHistory.Show();
+            /*
             ShowForm<FrmDistributorEditor>();
+            */
         }
 
         private void btnMovimientoInventario_Click(object sender, EventArgs e)

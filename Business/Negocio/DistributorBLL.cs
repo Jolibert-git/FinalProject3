@@ -13,44 +13,44 @@ namespace Business.Negocio
     {
         //MALA PRACTICA DE TRABAJAR CON DBHelper EN LA CAPA NEGOCIO (TENGO QUE SOLUCCIONARLO)
         private readonly DBHelper dbHelper = new DBHelper();
+        public readonly DistributorDAL _distributorDAL;
+
+        public DistributorBLL(DistributorDAL _distributorDAL)
+        {
+            this._distributorDAL = _distributorDAL;
+        }
+
+        public bool ValidateDistributor(string code)
+        {
+            try
+            {
+                return _distributorDAL.ValidateDistributor(code);
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine($"Error in method Validatedistribator class DistributorBLL");
+                throw;
+            }
+        }
 
         // -------------------------------------------------------------------
         // 1. OBTENER DISTRIBUIDOR POR CÓDIGO (Para uso en BLL) 🔍
 
         public Distributor GetDistributorByCode(string code)
         {
-            Distributor distributor = null;
-            SqlDataReader reader = null;
-            SqlConnection connection = null;
-
+           
             try
             {
-                SqlParameter[] parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@codeDistributor", code),
-                    new SqlParameter("@nameDistributor", DBNull.Value)
-                };
-
-                connection = dbHelper.OpenConnection();
-                reader = dbHelper.ExecuteReader(connection, "ReadDistributor", parameters);
-
-                if (reader.Read())
-                {
-                    distributor = MapDistributorFromReader(reader);
-                }
+                return _distributorDAL.GetDistributorByCode(code);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error DAL al obtener distribuidor por código: {ex.Message}");
+                Console.WriteLine($"Error BLL al obtener distribuidor por código: {ex.Message}");
                 throw;
             }
-            finally
-            {
-                if (reader != null && !reader.IsClosed) reader.Close();
-                dbHelper.CloseConnection();
-            }
+            
 
-            return distributor;
+            
         }
 
 

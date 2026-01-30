@@ -34,8 +34,8 @@ namespace DataAccess.Data
                 command.Parameters.AddWithValue("@NameProduct", (object)detail.NameProduct ?? DBNull.Value);
                 command.Parameters.AddWithValue("@UnitOfMeasure", (object)detail.UnitOfMeasure ?? DBNull.Value);
                 command.Parameters.AddWithValue("@Quantity", detail.Quantity);
-                command.Parameters.AddWithValue("@Price", detail.Price);
-                command.Parameters.AddWithValue("@CostProduct", detail.CostProduct);
+                command.Parameters.AddWithValue("@Price", detail.Price); //------------------------ i need update that because if i chage the price in the moment create invoice don't save the chage price, save price original of product -----------------------------------
+                command.Parameters.AddWithValue("@CostProduct", detail.CostProduct);  
                 command.Parameters.AddWithValue("@TaxRate", detail.TaxRate);
                 command.Parameters.AddWithValue("@TotalLine", detail.TotalLine);
                 command.Parameters.AddWithValue("@StatusDetail", detail.StatusDetail);

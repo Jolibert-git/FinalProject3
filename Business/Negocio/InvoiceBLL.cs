@@ -23,6 +23,7 @@ namespace Business.Negocio
             customerBLL = _customerBLL;
             invoiceDetailDAL = _invoiceDetailDAL;
             stockMovementBLL = _stockMovementBLL;
+            productBLL = _productBLL;
 
         }
         private readonly DBHelper dbHelper = new DBHelper();
@@ -44,7 +45,7 @@ namespace Business.Negocio
 
 
 
-        //-------------------------------------solucciona eso de dbHelper porque no se debe trabajar con el en la capa negocio----------------------------------
+        //---------------------------- I need solution that because i can't to use dbHelper in this layer;------------------------ 
         public int CreateInvoice(Invoice invoice)
         {
 
@@ -55,19 +56,19 @@ namespace Business.Negocio
 
                 try
                 {
-                    newHeaderID = invoiceDAL.InsertInvoiceHeader(invoice.Header, connection, transaction);
+                    newHeaderID = invoiceDAL.InsertInvoiceHeader(invoice.Header, connection, transaction); // It's for seva information and return of data base the self-increasing with Identity(1,1)
 
                     if (newHeaderID <= 0)
                     {
                         throw new Exception("Error interno: El ID de la factura no fue generado.");
                     }
 
-                    foreach (var detail in invoice.Details)
-                    {
+                    foreach (var detail in invoice.Details)             //remenber that invoice have as atribute one List of Datail
+                    {                                                   // i used "foreach" for scroll thogh the list and seve in data base
                         detail.CodeInvoiceHeader = newHeaderID;
                         invoiceDetailDAL.InsertInvoiceDetail(detail, connection, transaction);
 
-                        StockMovement movement = new StockMovement
+                        StockMovement movement = new StockMovement      //the same way StockMovement need to save in each product
                         {
                             CodeProduct = detail.CodeProduct,
                             MovementQuantity = detail.Quantity,
@@ -76,7 +77,7 @@ namespace Business.Negocio
                             Operation = "S"
                         };
 
-                        stockMovementBLL.InsertStockMovement(movement, connection, transaction);
+                        stockMovementBLL.InsertStockMovement(movement, connection, transaction); //to save
                     }
                     transaction.Commit();
                     return newHeaderID;
@@ -238,7 +239,7 @@ namespace Business.Negocio
             }
         }
 
-
+        //########################################################################### error here ########################################################################
         public Invoice GetInvoiceById(int invoiceId)
         {
             if (invoiceId <= 0)
